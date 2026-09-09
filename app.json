@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "furniture-store-app",
+    "slug": "furniture-store-app",
+    "version": "1.0.0",
+    "platforms": ["ios", "android", "web"],
+    "experiments": {
+      "baseUrl": "/FurnoApp"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
