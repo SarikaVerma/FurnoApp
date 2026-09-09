@@ -54,6 +54,8 @@ export default function HomeScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
+      <Text style={styles.deployNote}>Deployed via GitHub Actions — live for team review</Text>
+
       {loading ? (
         <ActivityIndicator style={{ marginTop: 40 }} color={colors.crimson} />
       ) : error ? (
@@ -142,6 +144,13 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   sectionTitle: { fontSize: 16, fontWeight: "700", color: colors.ink },
+  deployNote: {
+    fontSize: 11,
+    color: colors.muted,
+    textAlign: "center",
+    paddingHorizontal: 20,
+    paddingBottom: 8,
+  },
   filterLink: { flexDirection: "row", alignItems: "center", gap: 4 },
   filterLinkText: { fontSize: 12.5, fontWeight: "600", color: colors.crimson },
   item: {
