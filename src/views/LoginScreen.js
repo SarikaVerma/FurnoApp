@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
     const ok = await submit();
     if (!ok) return;
     // Signup goes through OTP verification first; login goes straight in.
-    navigation.navigate(mode === "signup" ? "Verification" : "Profile");
+    navigation.navigate(mode === "signup" ? "Verification" : "Home");
   };
 
   return (
