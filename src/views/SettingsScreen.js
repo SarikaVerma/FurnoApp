@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Switch, StyleSheet, ScrollView, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Switch, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   User, Bell, CreditCard, Moon, Globe, ShieldCheck, HelpCircle, Info,
@@ -22,18 +22,12 @@ const LINK_ROWS = [
 export default function SettingsScreen({ navigation }) {
   const { darkMode, setDarkMode, logout } = useSettingsViewModel();
 
-  const confirmLogout = () => {
-    Alert.alert("Log out", "Are you sure you want to log out?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Log out",
-        style: "destructive",
-        onPress: async () => {
-          await logout();
-          navigation.reset({ index: 0, routes: [{ name: "Onboarding" }] });
-        },
-      },
-    ]);
+  // Alert.alert has no real dialog on the web build (react-native-web
+  // doesn't implement it), so a confirmation gated behind its callback
+  // would silently never fire there — log out directly on tap instead.
+  const confirmLogout = async () => {
+    await logout();
+    navigation.reset({ index: 0, routes: [{ name: "Onboarding" }] });
   };
 
   return (
