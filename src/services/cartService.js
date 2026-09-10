@@ -15,11 +15,20 @@ function genId() {
 function toRaw(item) {
   const product = productsData.find((p) => p.id === item.productId);
   if (!product) return null;
+  // id is the cart row's own id; productId is kept separate so it never
+  // collides with the product's id (they're different things once a user
+  // can hold more than one unit of one product in one row).
   return {
     id: item.id,
+    productId: product.id,
     quantity: item.quantity,
-    ...product,
+    name: product.name,
+    category: product.category,
+    price: product.price,
     was_price: product.wasPrice ?? null,
+    description: product.description,
+    icon: product.icon,
+    color: product.color,
   };
 }
 
@@ -38,7 +47,10 @@ export const cartService = {
     const existing = cartStore.find((i) => i.productId === productId);
     if (existing) {
       existing.quantity += quantity;
-    } else {
+      if (existing.quantity <= 0) {
+        cartStore = cartStore.filter((i) => i.id !== existing.id);
+      }
+    } else if (quantity > 0) {
       cartStore.push({ id: genId(), productId, quantity });
     }
     return currentCart();
