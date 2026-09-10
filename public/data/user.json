@@ -1,0 +1,17 @@
+{
+  "id": "guest",
+  "name": "Your Name",
+  "phone": "+0 (000) 000-00-00",
+  "city": "City",
+  "avatarUrl": null,
+  "furpayBalance": 205.27,
+  "notifications": {
+    "productUpdates": true,
+    "comments": false,
+    "offerUpdates": true,
+    "notifications": false
+  },
+  "paymentMethods": [
+    { "id": "pm001", "type": "card", "last4": "0000", "cardholder": "Your Name", "expiry": "05/25" }
+  ]
+}
