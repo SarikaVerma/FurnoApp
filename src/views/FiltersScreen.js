@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ChevronLeft, SlidersHorizontal, Sofa, BedDouble, Armchair } from "lucide-react-native";
+import { ChevronLeft, SlidersHorizontal } from "lucide-react-native";
 import { GradientHeader, PrimaryButton, SimpleSlider } from "../components/Shared";
+import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useFiltersViewModel } from "../viewmodels/useFiltersViewModel";
 
-const ICONS = { sofa: Sofa, bed: BedDouble, armchair: Armchair, chair: Armchair, table: Sofa, storage: Sofa, lighting: Sofa };
 const SWATCHES = ["#FFFFFF", "#1B1420", "#8A8690", "#5C2A6B", "#F0A63B", "#D0432B", "#8E4FBF", "#3D7FD1", "#3FB6A8", "#8DC63F"];
 
 export default function FiltersScreen({ navigation, route }) {
@@ -45,7 +45,6 @@ export default function FiltersScreen({ navigation, route }) {
         <Text style={styles.sectionTitle}>Category</Text>
         <View style={styles.categoryRow}>
           {categories.map((cat) => {
-            const Icon = ICONS[cat.icon] || Sofa;
             const active = selectedCategory === cat.id;
             return (
               <TouchableOpacity
@@ -53,7 +52,7 @@ export default function FiltersScreen({ navigation, route }) {
                 onPress={() => setSelectedCategory(active ? null : cat.id)}
                 style={[styles.categoryChip, active && styles.categoryChipActive]}
               >
-                <Icon size={22} color={colors.crimson} strokeWidth={1.6} />
+                <ProductIllustration icon={cat.icon} color={colors.crimson} size={22} />
               </TouchableOpacity>
             );
           })}
