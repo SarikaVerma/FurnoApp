@@ -1,5 +1,9 @@
+// Must be the very first import in the entry file — this is how
+// react-native-gesture-handler installs its native event handling.
+import "react-native-gesture-handler";
 import React from "react";
 import { View, Platform, StyleSheet, useWindowDimensions, ActivityIndicator } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -41,8 +45,9 @@ export default function App() {
   const { checking, initialRoute } = useSessionViewModel();
 
   return (
-    <SafeAreaProvider>
-      <View style={[styles.root, Platform.OS === "web" && { height }]}>
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
+        <View style={[styles.root, Platform.OS === "web" && { height }]}>
         {checking ? (
           <View style={styles.loading}>
             <ActivityIndicator color={colors.crimson} />
@@ -79,6 +84,7 @@ export default function App() {
         )}
       </View>
     </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
