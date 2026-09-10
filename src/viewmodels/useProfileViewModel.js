@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { userService } from "../services/userService";
 import { User } from "../models/User";
 
@@ -20,9 +21,15 @@ export function useProfileViewModel() {
     }
   }, []);
 
-  useEffect(() => {
-    load();
-  }, [load]);
+  // Reload on focus, not just on mount — the stack navigator reuses this
+  // screen instance rather than remounting it, so returning here after
+  // changing notification settings would otherwise still show stale data
+  // (e.g. the notifications badge count).
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load])
+  );
 
   return { user, loading, error, reload: load };
 }
