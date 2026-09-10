@@ -29,8 +29,11 @@ const ICONS = { sofa: Sofa, armchair: Armchair, bed: BedDouble, chair: Armchair 
 
 // View: renders exactly what the ViewModel gives it. No axios, no data
 // shaping, no business logic lives here — that's the ViewModel's job.
-export default function HomeScreen({ navigation }) {
-  const { products, loading, error, cartQuantities, addToCart, reload } = useHomeViewModel();
+export default function HomeScreen({ navigation, route }) {
+  const { products, loading, error, cartQuantities, addToCart, reload } = useHomeViewModel(
+    "guest",
+    route?.params?.filters
+  );
 
   return (
     <SafeAreaView style={styles.fill}>
