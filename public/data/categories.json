@@ -1,0 +1,9 @@
+[
+  { "id": "sofa", "label": "Sofa", "icon": "sofa" },
+  { "id": "armchair", "label": "Armchair", "icon": "armchair" },
+  { "id": "bed", "label": "Bed", "icon": "bed" },
+  { "id": "chair", "label": "Chair", "icon": "chair" },
+  { "id": "table", "label": "Table", "icon": "table" },
+  { "id": "storage", "label": "Storage", "icon": "wardrobe" },
+  { "id": "lighting", "label": "Lighting", "icon": "lamp" }
+]
