@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ChevronLeft, Heart, Armchair, Star } from "lucide-react-native";
+import { ChevronLeft, Heart, Star } from "lucide-react-native";
 import { colors } from "../theme";
+import { ProductIllustration } from "../components/ProductIllustration";
 import { useProductDetailViewModel } from "../viewmodels/useProductDetailViewModel";
 import { useReviewsViewModel } from "../viewmodels/useReviewsViewModel";
 
@@ -40,7 +41,7 @@ export default function ProductDetailScreen({ navigation, route }) {
 
       <ScrollView style={[styles.content, { minHeight: 0 }]} contentContainerStyle={{ paddingBottom: 24 }}>
         <View style={styles.imageWrap}>
-          <Armchair size={140} color={colors.crimson} strokeWidth={1} />
+          <ProductIllustration icon={product.icon} color={product.color} size={140} />
         </View>
 
         <View style={styles.titleRow}>
