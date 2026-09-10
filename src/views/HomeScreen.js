@@ -10,9 +10,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Search,
-  Sofa,
-  Armchair,
-  BedDouble,
   Minus,
   Plus,
   SlidersHorizontal,
@@ -22,10 +19,9 @@ import {
   Settings,
 } from "lucide-react-native";
 import { GradientHeader, TabBar, handleTabPress } from "../components/Shared";
+import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useHomeViewModel } from "../viewmodels/useHomeViewModel";
-
-const ICONS = { sofa: Sofa, armchair: Armchair, bed: BedDouble, chair: Armchair };
 
 // View: renders exactly what the ViewModel gives it. No axios, no data
 // shaping, no business logic lives here — that's the ViewModel's job.
@@ -69,7 +65,6 @@ export default function HomeScreen({ navigation, route }) {
           contentContainerStyle={{ paddingBottom: 24 }}
         >
           {products.map((item) => {
-            const Icon = ICONS[item.icon] || Sofa;
             const inCart = cartQuantities[item.id] ?? 0;
             return (
               <TouchableOpacity
@@ -78,7 +73,7 @@ export default function HomeScreen({ navigation, route }) {
                 onPress={() => navigation.navigate("ProductDetail", { id: item.id })}
               >
                 <View style={styles.itemIcon}>
-                  <Icon size={22} color={colors.crimson} strokeWidth={1.7} />
+                  <ProductIllustration icon={item.icon} color={item.color} size={28} />
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.itemName}>{item.name}</Text>
