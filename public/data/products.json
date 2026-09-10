@@ -1,7 +1,7 @@
 [
   {
     "id": "p001",
-    "name": "Sofa",
+    "name": "Camden 3-Seat Sofa",
     "category": "sofa",
     "price": 505,
     "wasPrice": 719,
@@ -11,13 +11,13 @@
     "icon": "sofa",
     "color": "#D0233A",
     "colors": ["#1B1420", "#8A8690", "#5C2A6B", "#D0432B"],
-    "description": "A generously cushioned three-seat sofa with a solid oak frame and removable, machine-washable covers. Built for everyday living rooms that see a lot of use.",
+    "description": "A generously cushioned three-seat sofa in warm terracotta, with a solid oak frame and removable, machine-washable covers. Built for everyday living rooms that see a lot of use.",
     "dimensions": { "widthCm": 210, "depthCm": 90, "heightCm": 85 },
     "material": "Oak frame, cotton-blend upholstery"
   },
   {
     "id": "p002",
-    "name": "Armchair",
+    "name": "Wren Accent Armchair",
     "category": "armchair",
     "price": 220,
     "wasPrice": 279,
@@ -33,7 +33,7 @@
   },
   {
     "id": "p003",
-    "name": "Bed",
+    "name": "Haven Platform Bed",
     "category": "bed",
     "price": 760,
     "wasPrice": 919,
@@ -49,7 +49,7 @@
   },
   {
     "id": "p004",
-    "name": "Chair",
+    "name": "Beech Stacking Chair",
     "category": "chair",
     "price": 45,
     "wasPrice": 79,
@@ -65,7 +65,7 @@
   },
   {
     "id": "p005",
-    "name": "Sofa",
+    "name": "Solstice 3-Seat Sofa",
     "category": "sofa",
     "price": 505,
     "wasPrice": 719,
@@ -75,13 +75,13 @@
     "icon": "sofa",
     "color": "#3D7FD1",
     "colors": ["#3D7FD1", "#3FB6A8"],
-    "description": "A generously cushioned three-seat sofa with a solid oak frame and removable, machine-washable covers.",
+    "description": "A cooler-toned take on our three-seat sofa, in cobalt blue with a solid oak frame. Currently out of stock while we restock this colorway.",
     "dimensions": { "widthCm": 210, "depthCm": 90, "heightCm": 85 },
     "material": "Oak frame, cotton-blend upholstery"
   },
   {
     "id": "p006",
-    "name": "Bookshelf",
+    "name": "Foundry 5-Tier Bookshelf",
     "category": "storage",
     "price": 189,
     "wasPrice": 240,
@@ -97,7 +97,7 @@
   },
   {
     "id": "p007",
-    "name": "Coffee Table",
+    "name": "Halo Glass Coffee Table",
     "category": "table",
     "price": 132,
     "wasPrice": 165,
@@ -113,7 +113,7 @@
   },
   {
     "id": "p008",
-    "name": "Dining Table",
+    "name": "Walnut Grove Dining Table",
     "category": "table",
     "price": 410,
     "wasPrice": 520,
@@ -129,7 +129,7 @@
   },
   {
     "id": "p009",
-    "name": "Wardrobe",
+    "name": "Alderwood 3-Door Wardrobe",
     "category": "storage",
     "price": 610,
     "wasPrice": 780,
@@ -145,7 +145,7 @@
   },
   {
     "id": "p010",
-    "name": "Floor Lamp",
+    "name": "Arclight Floor Lamp",
     "category": "lighting",
     "price": 76,
     "wasPrice": 95,
