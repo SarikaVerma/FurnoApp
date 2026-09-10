@@ -6,7 +6,7 @@ import { ProductList } from "../models/Product";
 // Owns all state and logic for the Home/Catalog screen. The screen (View)
 // just calls the functions this returns and renders the data — it never
 // talks to the service layer or touches raw API shapes directly.
-export function useHomeViewModel(userId = "guest") {
+export function useHomeViewModel(userId = "guest", incomingFilters = null) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,10 +36,17 @@ export function useHomeViewModel(userId = "guest") {
     }
   }, []);
 
+  // Re-runs whenever the Filters screen hands back a new filter set via
+  // navigation params. The stack navigator reuses this screen instance
+  // instead of remounting it, so a mount-only effect would never see the
+  // new params — this has to watch incomingFilters itself.
   useEffect(() => {
-    load();
+    load(incomingFilters || {});
+  }, [load, incomingFilters]);
+
+  useEffect(() => {
     cartService.list(userId).then(applyCartRows);
-  }, [load, userId, applyCartRows]);
+  }, [userId, applyCartRows]);
 
   const addToCart = useCallback(
     async (productId, delta = 1) => {
@@ -53,20 +60,14 @@ export function useHomeViewModel(userId = "guest") {
     [userId, applyCartRows]
   );
 
-  const applyFilters = useCallback(
-    (filters) => load(filters),
-    [load]
-  );
-
   return {
     products,
     loading,
     error,
     search,
     setSearch,
-    reload: load,
+    reload: () => load(incomingFilters || {}),
     cartQuantities,
     addToCart,
-    applyFilters,
   };
 }
