@@ -7,7 +7,7 @@ import { colors } from "../theme";
 import { useProfileViewModel } from "../viewmodels/useProfileViewModel";
 
 const ROWS = [
-  { key: "messages", icon: Mail, label: "Messages", badge: 3 },
+  { key: "messages", icon: Mail, label: "Messages", route: "Messages" },
   { key: "notifications", icon: Bell, label: "Notifications", route: "Notifications" },
   { key: "account", icon: User, label: "Account details" },
   { key: "purchases", icon: ShoppingCart, label: "My purchases", route: "Cart" },
