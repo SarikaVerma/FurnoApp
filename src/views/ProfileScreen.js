@@ -8,7 +8,7 @@ import { useProfileViewModel } from "../viewmodels/useProfileViewModel";
 
 const ROWS = [
   { key: "messages", icon: Mail, label: "Messages", badge: 3 },
-  { key: "notifications", icon: Bell, label: "Notifications", badge: 9, route: "Notifications" },
+  { key: "notifications", icon: Bell, label: "Notifications", route: "Notifications" },
   { key: "account", icon: User, label: "Account details" },
   { key: "purchases", icon: ShoppingCart, label: "My purchases", route: "Cart" },
   { key: "settings", icon: Settings, label: "Settings", route: "Settings" },
@@ -16,6 +16,11 @@ const ROWS = [
 
 export default function ProfileScreen({ navigation }) {
   const { user, loading, error } = useProfileViewModel();
+
+  // The notifications badge used to be a hardcoded 9, unrelated to
+  // anything on the actual Notifications screen. It now counts the same
+  // toggles that screen shows, so the two numbers can't drift apart.
+  const notificationsOn = Object.values(user?.notifications || {}).filter(Boolean).length;
 
   return (
     <SafeAreaView style={styles.fill}>
@@ -35,6 +40,7 @@ export default function ProfileScreen({ navigation }) {
         ) : (
           ROWS.map((row) => {
             const Icon = row.icon;
+            const badge = row.key === "notifications" ? notificationsOn : row.badge;
             return (
               <TouchableOpacity
                 key={row.key}
@@ -43,9 +49,9 @@ export default function ProfileScreen({ navigation }) {
               >
                 <Icon size={19} color={colors.plum} strokeWidth={1.8} />
                 <Text style={styles.rowLabel}>{row.label}</Text>
-                {row.badge ? (
+                {badge ? (
                   <View style={styles.badge}>
-                    <Text style={styles.badgeText}>{row.badge}</Text>
+                    <Text style={styles.badgeText}>{badge}</Text>
                   </View>
                 ) : null}
               </TouchableOpacity>
