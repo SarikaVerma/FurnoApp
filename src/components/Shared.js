@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
-import { View, Text, TouchableOpacity, PanResponder, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../theme";
 
@@ -66,9 +67,12 @@ export function TabBar({ active, onNavigate, Icons }) {
   );
 }
 
-// Pure-JS range slider — no native module, so it works in Expo Snack, web,
-// and bare RN alike. Drop-in replacement for @react-native-community/slider
-// for the single-thumb case used in FiltersScreen.
+// Single-thumb range slider built on react-native-gesture-handler rather
+// than the legacy PanResponder API. PanResponder's responder system has
+// poor, inconsistent support for mouse-driven dragging on react-native-web
+// (clicks/drags on the track silently did nothing); gesture-handler is the
+// library @react-navigation/stack itself already depends on for gestures,
+// and its Pan gesture is reliably supported on web.
 export function SimpleSlider({
   minimumValue = 0,
   maximumValue = 100,
@@ -77,14 +81,6 @@ export function SimpleSlider({
   style,
 }) {
   const [trackWidth, setTrackWidth] = useState(0);
-  // Absolute page-X of the track's left edge, captured once per drag.
-  // locationX is only reliable at the instant of touch-down — on web,
-  // move events are tracked against whatever DOM node the raw mouse
-  // event lands on, not the track itself, so locationX goes stale mid
-  // drag. gestureState.moveX stays accurate for the whole gesture on
-  // every platform, so combined with this offset it gives the correct
-  // position throughout the drag instead of just at the start.
-  const trackPageX = useRef(0);
   const clamp = (v) => Math.min(maximumValue, Math.max(minimumValue, v));
 
   const valueFromX = (x) => {
@@ -93,33 +89,24 @@ export function SimpleSlider({
     return clamp(minimumValue + ratio * (maximumValue - minimumValue));
   };
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: (evt) => {
-        trackPageX.current = evt.nativeEvent.pageX - evt.nativeEvent.locationX;
-        onValueChange(valueFromX(evt.nativeEvent.locationX));
-      },
-      onPanResponderMove: (evt, gestureState) => {
-        onValueChange(valueFromX(gestureState.moveX - trackPageX.current));
-      },
-    })
-  ).current;
+  const pan = Gesture.Pan()
+    .onBegin((e) => onValueChange(valueFromX(e.x)))
+    .onUpdate((e) => onValueChange(valueFromX(e.x)));
 
   const ratio = trackWidth > 0 ? (value - minimumValue) / (maximumValue - minimumValue) : 0;
   const thumbLeft = Math.min(1, Math.max(0, ratio)) * trackWidth;
 
   return (
-    <View
-      style={[sliderStyles.track, style]}
-      onLayout={(e) => setTrackWidth(e.nativeEvent.layout.width)}
-      {...panResponder.panHandlers}
-    >
-      <View style={sliderStyles.trackBg} />
-      <View style={[sliderStyles.trackFill, { width: thumbLeft }]} />
-      <View style={[sliderStyles.thumb, { left: thumbLeft - 10 }]} />
-    </View>
+    <GestureDetector gesture={pan}>
+      <View
+        style={[sliderStyles.track, style]}
+        onLayout={(e) => setTrackWidth(e.nativeEvent.layout.width)}
+      >
+        <View style={sliderStyles.trackBg} />
+        <View style={[sliderStyles.trackFill, { width: thumbLeft }]} />
+        <View style={[sliderStyles.thumb, { left: thumbLeft - 10 }]} />
+      </View>
+    </GestureDetector>
   );
 }
 
