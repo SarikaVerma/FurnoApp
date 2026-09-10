@@ -23,6 +23,7 @@ function seedUsers() {
       phone: normalizePhone("+0 (000) 000-00-00"),
       password: "Passw0rd1",
       name: "Your Name",
+      city: "City",
     },
   ];
 }
@@ -76,12 +77,12 @@ export const authService = {
       throw new Error("Incorrect phone number or password.");
     }
 
-    currentSession = { id: user.id, phone: user.phone, name: user.name };
+    currentSession = { id: user.id, phone: user.phone, name: user.name, city: user.city };
     await persistSession();
     return currentSession;
   },
 
-  async register(phone, password, name = "New User") {
+  async register(phone, password, name = "New User", city = "") {
     await hydrate();
     await delay();
     const normalized = normalizePhone(phone);
@@ -90,10 +91,10 @@ export const authService = {
       throw new Error("An account with this phone number already exists.");
     }
 
-    const user = { id: `u_${Date.now()}`, phone: normalized, password, name };
+    const user = { id: `u_${Date.now()}`, phone: normalized, password, name, city };
     users.push(user);
     await persistUsers();
-    currentSession = { id: user.id, phone: user.phone, name: user.name };
+    currentSession = { id: user.id, phone: user.phone, name: user.name, city: user.city };
     await persistSession();
     return currentSession;
   },
