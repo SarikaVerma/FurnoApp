@@ -1,18 +1,17 @@
-import userData from "../data/user.json";
+import { DATA_BASE_URL } from "./config";
 
-// No /api/user endpoint exists on the backend yet — this reads the local
-// mock so the ViewModel/View layers already have a real service contract
-// to call. Swap the body for an apiClient.get("/user") call once the
-// backend route exists; nothing above this file needs to change.
+// getCurrentUser fetches the hosted mock user profile over HTTPS.
+// updateNotificationSettings has no real backend to write to — it stays
+// a mock echo, matching this POC's read-only-API scope.
 export const userService = {
   async getCurrentUser() {
-    return new Promise((resolve) => setTimeout(() => resolve(userData), 200));
+    const res = await fetch(`${DATA_BASE_URL}/user.json`);
+    if (!res.ok) throw new Error("Failed to load user");
+    return res.json();
   },
 
   async updateNotificationSettings(settings) {
-    // Mock write — just echoes back what was sent, as a real PATCH would.
-    return new Promise((resolve) =>
-      setTimeout(() => resolve({ ...userData, notifications: settings }), 200)
-    );
+    const userData = await this.getCurrentUser();
+    return { ...userData, notifications: settings };
   },
 };
