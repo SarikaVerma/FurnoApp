@@ -1,11 +1,9 @@
-import productsData from "../data/products.json";
+import { DATA_BASE_URL } from "./config";
 
-// Fully offline — reads the bundled products.json instead of calling a
-// backend. The ViewModel layer above doesn't know or care that this
-// changed; list()/getById() keep the same signature and return shape
-// (raw objects with a was_price key) that the Product model expects.
-
-const delay = (ms = 150) => new Promise((resolve) => setTimeout(resolve, ms));
+// Fetches the catalog from a hosted JSON file over HTTPS instead of
+// bundling it locally. The ViewModel layer above doesn't know or care;
+// list()/getById() keep the same signature and return shape (raw objects
+// with a was_price key) that the Product model expects.
 
 function toRaw(item) {
   // products.json uses camelCase (wasPrice); the Product model expects
@@ -13,9 +11,15 @@ function toRaw(item) {
   return { ...item, was_price: item.wasPrice ?? null };
 }
 
+async function fetchProducts() {
+  const res = await fetch(`${DATA_BASE_URL}/products.json`);
+  if (!res.ok) throw new Error("Failed to load products");
+  return res.json();
+}
+
 export const productsService = {
   async list(filters = {}) {
-    await delay();
+    const productsData = await fetchProducts();
     let items = productsData.map(toRaw);
 
     if (filters.category) {
@@ -36,7 +40,7 @@ export const productsService = {
   },
 
   async getById(id) {
-    await delay();
+    const productsData = await fetchProducts();
     const item = productsData.find((p) => p.id === id);
     if (!item) throw new Error("Product not found");
     return toRaw(item);
