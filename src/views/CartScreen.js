@@ -8,12 +8,11 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ChevronLeft, Sofa, Armchair, BedDouble, Minus, Plus, ShoppingCart } from "lucide-react-native";
+import { ChevronLeft, Minus, Plus, ShoppingCart } from "lucide-react-native";
 import { PrimaryButton } from "../components/Shared";
+import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useCartViewModel } from "../viewmodels/useCartViewModel";
-
-const ICONS = { sofa: Sofa, armchair: Armchair, bed: BedDouble, chair: Armchair };
 
 export default function CartScreen({ navigation }) {
   const { items, total, loading, error, checkingOut, updateQuantity, removeItem, checkout } =
@@ -51,11 +50,10 @@ export default function CartScreen({ navigation }) {
           contentContainerStyle={{ paddingBottom: 24 }}
         >
           {items.map((item) => {
-            const Icon = ICONS[item.product.icon] || Sofa;
             return (
               <View key={item.cartItemId} style={styles.item}>
                 <View style={styles.itemIcon}>
-                  <Icon size={22} color={colors.crimson} strokeWidth={1.7} />
+                  <ProductIllustration icon={item.product.icon} color={item.product.color} size={28} />
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.itemName}>{item.product.name}</Text>
