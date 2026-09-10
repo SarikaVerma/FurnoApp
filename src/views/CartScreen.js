@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Sofa, Armchair, BedDouble, Minus, Plus, ShoppingCart } from "lucide-react-native";
@@ -21,11 +20,12 @@ export default function CartScreen({ navigation }) {
     useCartViewModel();
 
   const handleCheckout = async () => {
+    // Alert.alert has no real dialog on the web build (react-native-web
+    // doesn't implement it), so navigation must not depend on its
+    // callback — go straight to Payment once the order is placed.
     const order = await checkout();
     if (order) {
-      Alert.alert("Order placed", `Total: $${order.total.toFixed(2)}`, [
-        { text: "OK", onPress: () => navigation.navigate("Home") },
-      ]);
+      navigation.navigate("Payment", { orderId: order.id, total: order.total });
     }
   };
 
