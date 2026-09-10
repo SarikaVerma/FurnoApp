@@ -21,6 +21,7 @@ import CartScreen from "./src/views/CartScreen";
 import PaymentScreen from "./src/views/PaymentScreen";
 import NotificationsScreen from "./src/views/NotificationsScreen";
 import SettingsScreen from "./src/views/SettingsScreen";
+import MessagesScreen from "./src/views/MessagesScreen";
 import { useSessionViewModel } from "./src/viewmodels/useSessionViewModel";
 import { colors } from "./src/theme";
 
@@ -79,6 +80,7 @@ export default function App() {
               <Stack.Screen name="Payment" component={PaymentScreen} />
               <Stack.Screen name="Notifications" component={NotificationsScreen} />
               <Stack.Screen name="Settings" component={SettingsScreen} />
+              <Stack.Screen name="Messages" component={MessagesScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         )}
