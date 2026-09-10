@@ -17,7 +17,7 @@ export default function VerificationScreen({ navigation }) {
 
   const handleSubmit = async () => {
     const ok = await verify();
-    if (ok) navigation.navigate("Profile");
+    if (ok) navigation.navigate("Home");
   };
 
   return (
