@@ -1,12 +1,18 @@
-import reviewsData from "../data/reviews.json";
+import { DATA_BASE_URL } from "./config";
+
+async function fetchReviews() {
+  const res = await fetch(`${DATA_BASE_URL}/reviews.json`);
+  if (!res.ok) throw new Error("Failed to load reviews");
+  return res.json();
+}
 
 export const reviewsService = {
   async listByProduct(productId) {
-    const filtered = reviewsData.filter((r) => r.productId === productId);
-    return new Promise((resolve) => setTimeout(() => resolve(filtered), 150));
+    const reviewsData = await fetchReviews();
+    return reviewsData.filter((r) => r.productId === productId);
   },
 
   async listAll() {
-    return new Promise((resolve) => setTimeout(() => resolve(reviewsData), 150));
+    return fetchReviews();
   },
 };
