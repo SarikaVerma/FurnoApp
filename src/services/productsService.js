@@ -31,6 +31,11 @@ export const productsService = {
     if (filters.maxPrice != null) {
       items = items.filter((p) => p.price <= Number(filters.maxPrice));
     }
+    if (filters.color) {
+      items = items.filter(
+        (p) => p.color === filters.color || (p.colors || []).includes(filters.color)
+      );
+    }
     if (filters.search) {
       const q = filters.search.toLowerCase();
       items = items.filter((p) => p.name.toLowerCase().includes(q));
