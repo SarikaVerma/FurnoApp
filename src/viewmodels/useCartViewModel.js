@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { cartService } from "../services/cartService";
 import { ordersService } from "../services/ordersService";
 import { CartItemList, cartTotal } from "../models/CartItem";
@@ -22,9 +23,15 @@ export function useCartViewModel(userId = "guest") {
     }
   }, [userId]);
 
-  useEffect(() => {
-    load();
-  }, [load]);
+  // The stack navigator reuses an already-mounted Cart screen instance
+  // instead of remounting it, so a mount-only effect would only ever show
+  // whatever was in the cart the first time it was opened. Reloading on
+  // focus keeps it in sync with items added from other screens.
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load])
+  );
 
   const updateQuantity = useCallback(
     async (cartItemId, quantity) => {
