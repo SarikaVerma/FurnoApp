@@ -11,6 +11,17 @@ export function useHomeViewModel(userId = "guest") {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  // productId -> quantity currently in the cart, so the catalog stepper
+  // always shows the real cart count instead of a separate local guess.
+  const [cartQuantities, setCartQuantities] = useState({});
+
+  const applyCartRows = useCallback((rows) => {
+    const map = {};
+    rows.forEach((row) => {
+      map[row.productId] = row.quantity;
+    });
+    setCartQuantities(map);
+  }, []);
 
   const load = useCallback(async (filters = {}) => {
     setLoading(true);
@@ -27,17 +38,19 @@ export function useHomeViewModel(userId = "guest") {
 
   useEffect(() => {
     load();
-  }, [load]);
+    cartService.list(userId).then(applyCartRows);
+  }, [load, userId, applyCartRows]);
 
   const addToCart = useCallback(
-    async (productId, quantity = 1) => {
+    async (productId, delta = 1) => {
       try {
-        await cartService.addItem(userId, productId, quantity);
+        const rows = await cartService.addItem(userId, productId, delta);
+        applyCartRows(rows);
       } catch (err) {
         setError(err.message);
       }
     },
-    [userId]
+    [userId, applyCartRows]
   );
 
   const applyFilters = useCallback(
@@ -52,6 +65,7 @@ export function useHomeViewModel(userId = "guest") {
     search,
     setSearch,
     reload: load,
+    cartQuantities,
     addToCart,
     applyFilters,
   };
