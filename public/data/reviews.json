@@ -1,0 +1,6 @@
+[
+  { "id": "r001", "productId": "p004", "name": "Alex Turner", "rating": 4, "text": "Sturdy and comfortable, exactly what I needed for the dining table.", "createdAt": "2026-06-02T10:12:00Z" },
+  { "id": "r002", "productId": "p004", "name": "Priya Nair", "rating": 3, "text": "Good value but assembly took longer than expected.", "createdAt": "2026-06-10T18:40:00Z" },
+  { "id": "r003", "productId": "p001", "name": "Jordan Lee", "rating": 5, "text": "The covers are genuinely machine washable, huge plus with kids around.", "createdAt": "2026-05-28T08:15:00Z" },
+  { "id": "r004", "productId": "p001", "name": "Sam Okafor", "rating": 4, "text": "Looks great in the living room, slightly firmer than I expected.", "createdAt": "2026-07-01T13:52:00Z" }
+]
