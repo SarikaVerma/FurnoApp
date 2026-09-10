@@ -77,6 +77,14 @@ export function SimpleSlider({
   style,
 }) {
   const [trackWidth, setTrackWidth] = useState(0);
+  // Absolute page-X of the track's left edge, captured once per drag.
+  // locationX is only reliable at the instant of touch-down — on web,
+  // move events are tracked against whatever DOM node the raw mouse
+  // event lands on, not the track itself, so locationX goes stale mid
+  // drag. gestureState.moveX stays accurate for the whole gesture on
+  // every platform, so combined with this offset it gives the correct
+  // position throughout the drag instead of just at the start.
+  const trackPageX = useRef(0);
   const clamp = (v) => Math.min(maximumValue, Math.max(minimumValue, v));
 
   const valueFromX = (x) => {
@@ -90,10 +98,11 @@ export function SimpleSlider({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: (evt) => {
+        trackPageX.current = evt.nativeEvent.pageX - evt.nativeEvent.locationX;
         onValueChange(valueFromX(evt.nativeEvent.locationX));
       },
-      onPanResponderMove: (evt) => {
-        onValueChange(valueFromX(evt.nativeEvent.locationX));
+      onPanResponderMove: (evt, gestureState) => {
+        onValueChange(valueFromX(gestureState.moveX - trackPageX.current));
       },
     })
   ).current;
