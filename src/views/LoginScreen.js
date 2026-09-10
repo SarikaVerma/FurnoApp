@@ -11,6 +11,7 @@ export default function LoginScreen({ navigation }) {
     phone, setPhone,
     password, setPassword,
     name, setName,
+    city, setCity,
     fieldErrors, error, submitting,
     submit,
   } = useLoginViewModel();
@@ -51,6 +52,15 @@ export default function LoginScreen({ navigation }) {
               value={name}
               onChangeText={setName}
               placeholder="Your Name"
+              placeholderTextColor={colors.muted}
+            />
+
+            <Text style={styles.label}>City</Text>
+            <TextInput
+              style={styles.input}
+              value={city}
+              onChangeText={setCity}
+              placeholder="Your City"
               placeholderTextColor={colors.muted}
             />
           </>
