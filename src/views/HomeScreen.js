@@ -13,6 +13,7 @@ import {
   Minus,
   Plus,
   SlidersHorizontal,
+  X,
   Store,
   ShoppingCart,
   User,
@@ -26,9 +27,10 @@ import { useHomeViewModel } from "../viewmodels/useHomeViewModel";
 // View: renders exactly what the ViewModel gives it. No axios, no data
 // shaping, no business logic lives here — that's the ViewModel's job.
 export default function HomeScreen({ navigation, route }) {
+  const activeFilters = route?.params?.filters;
   const { products, loading, error, cartQuantities, addToCart, reload } = useHomeViewModel(
     "guest",
-    route?.params?.filters
+    activeFilters
   );
 
   return (
@@ -42,10 +44,21 @@ export default function HomeScreen({ navigation, route }) {
 
       <View style={styles.sectionRow}>
         <Text style={styles.sectionTitle}>Catalog</Text>
-        <TouchableOpacity style={styles.filterLink} onPress={() => navigation.navigate("Filters")}>
-          <SlidersHorizontal size={14} color={colors.crimson} />
-          <Text style={styles.filterLinkText}>Filters</Text>
-        </TouchableOpacity>
+        <View style={styles.filterLinks}>
+          {activeFilters ? (
+            <TouchableOpacity
+              style={styles.filterLink}
+              onPress={() => navigation.setParams({ filters: undefined })}
+            >
+              <X size={14} color={colors.muted} />
+              <Text style={styles.clearLinkText}>Clear</Text>
+            </TouchableOpacity>
+          ) : null}
+          <TouchableOpacity style={styles.filterLink} onPress={() => navigation.navigate("Filters")}>
+            <SlidersHorizontal size={14} color={colors.crimson} />
+            <Text style={styles.filterLinkText}>Filters</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <Text style={styles.deployNote}>Deployed via GitHub Actions — live for team review</Text>
@@ -146,8 +159,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 8,
   },
+  filterLinks: { flexDirection: "row", alignItems: "center", gap: 16 },
   filterLink: { flexDirection: "row", alignItems: "center", gap: 4 },
   filterLinkText: { fontSize: 12.5, fontWeight: "600", color: colors.crimson },
+  clearLinkText: { fontSize: 12.5, fontWeight: "600", color: colors.muted },
   item: {
     flexDirection: "row",
     alignItems: "center",
