@@ -30,12 +30,7 @@ const ICONS = { sofa: Sofa, armchair: Armchair, bed: BedDouble, chair: Armchair 
 // View: renders exactly what the ViewModel gives it. No axios, no data
 // shaping, no business logic lives here — that's the ViewModel's job.
 export default function HomeScreen({ navigation }) {
-  const { products, loading, error, addToCart, reload } = useHomeViewModel();
-  const [qty, setQty] = React.useState({});
-
-  const getQty = (id) => qty[id] ?? 1;
-  const updateQty = (id, delta) =>
-    setQty((q) => ({ ...q, [id]: Math.max(1, getQty(id) + delta) }));
+  const { products, loading, error, cartQuantities, addToCart, reload } = useHomeViewModel();
 
   return (
     <SafeAreaView style={styles.fill}>
@@ -72,6 +67,7 @@ export default function HomeScreen({ navigation }) {
         >
           {products.map((item) => {
             const Icon = ICONS[item.icon] || Sofa;
+            const inCart = cartQuantities[item.id] ?? 0;
             return (
               <TouchableOpacity
                 key={item.id}
@@ -88,20 +84,21 @@ export default function HomeScreen({ navigation }) {
                   ) : null}
                 </View>
                 <View style={styles.stepper}>
-                  <TouchableOpacity onPress={() => updateQty(item.id, -1)} style={styles.stepperBtn}>
-                    <Minus size={13} color={colors.muted} />
+                  <TouchableOpacity
+                    onPress={() => addToCart(item.id, -1)}
+                    style={styles.stepperBtn}
+                    disabled={inCart === 0}
+                  >
+                    <Minus size={13} color={inCart === 0 ? colors.line : colors.muted} />
                   </TouchableOpacity>
-                  <Text style={styles.stepperValue}>{getQty(item.id)}</Text>
-                  <TouchableOpacity onPress={() => updateQty(item.id, 1)} style={styles.stepperBtn}>
+                  <Text style={styles.stepperValue}>{inCart}</Text>
+                  <TouchableOpacity onPress={() => addToCart(item.id, 1)} style={styles.stepperBtn}>
                     <Plus size={13} color={colors.muted} />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                  onPress={() => addToCart(item.id, getQty(item.id))}
-                  style={styles.priceButton}
-                >
+                <View style={styles.priceButton}>
                   <Text style={styles.itemPrice}>${item.price}</Text>
-                </TouchableOpacity>
+                </View>
               </TouchableOpacity>
             );
           })}
