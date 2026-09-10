@@ -5,7 +5,7 @@ export function CartItem(raw) {
   return {
     cartItemId: raw.id,
     quantity: raw.quantity,
-    product: Product(raw),
+    product: Product({ ...raw, id: raw.productId }),
     lineTotal: raw.price * raw.quantity,
   };
 }
