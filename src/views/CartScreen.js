@@ -24,7 +24,7 @@ export default function CartScreen({ navigation }) {
     // callback — go straight to Payment once the order is placed.
     const order = await checkout();
     if (order) {
-      navigation.navigate("Payment", { orderId: order.id, total: order.total });
+      navigation.navigate("Payment", { orderId: order.id, total: order.total, eta: order.eta });
     }
   };
 
