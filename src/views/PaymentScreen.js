@@ -6,7 +6,7 @@ import { PrimaryButton } from "../components/Shared";
 import { colors } from "../theme";
 import { usePaymentViewModel } from "../viewmodels/usePaymentViewModel";
 
-export default function PaymentScreen({ navigation }) {
+export default function PaymentScreen({ navigation, route }) {
   const {
     cardholder, setCardholder, cardNumber, setCardNumber,
     month, setMonth, year, setYear, saving, error, addCard,
@@ -14,7 +14,19 @@ export default function PaymentScreen({ navigation }) {
 
   const handleSubmit = async () => {
     const ok = await addCard();
-    if (ok) navigation.navigate("Home");
+    if (!ok) return;
+    // Reached from Cart -> Checkout (an order is already placed and
+    // waiting on payment details) vs. Settings -> Payment methods (just
+    // adding a card to the account, no order involved).
+    if (route.params?.orderId) {
+      navigation.navigate("OrderConfirmation", {
+        orderId: route.params.orderId,
+        total: route.params.total,
+        eta: route.params.eta,
+      });
+    } else {
+      navigation.navigate("Home");
+    }
   };
 
   return (
@@ -33,7 +45,7 @@ export default function PaymentScreen({ navigation }) {
             <View style={{ flex: 1 }} />
             <View style={styles.cardBadge}><Text style={styles.cardBadgeText}>CARD</Text></View>
           </View>
-          <Text style={styles.cardNumber}>{cardNumber}</Text>
+          <Text style={styles.cardNumber}>{cardNumber || "0000 0000 0000 0000"}</Text>
           <View style={styles.cardBottomRow}>
             <Text style={styles.cardMetaLabel}>{cardholder || "Your Name"}</Text>
             <Text style={styles.cardMetaLabel}>{month || "MM"}/{year || "YY"}</Text>
@@ -45,7 +57,15 @@ export default function PaymentScreen({ navigation }) {
         <TextInput value={cardholder} onChangeText={setCardholder} placeholder="Your Name" placeholderTextColor={colors.muted} style={styles.input} />
 
         <Text style={styles.label}>Card number</Text>
-        <TextInput value={cardNumber} onChangeText={setCardNumber} keyboardType="number-pad" style={styles.input} />
+        <TextInput
+          value={cardNumber}
+          onChangeText={setCardNumber}
+          placeholder="0000 0000 0000 0000"
+          placeholderTextColor={colors.muted}
+          keyboardType="number-pad"
+          maxLength={19}
+          style={styles.input}
+        />
 
         <View style={styles.row}>
           <View style={{ flex: 1, marginRight: 12 }}>
