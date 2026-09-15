@@ -19,6 +19,7 @@ import ProductDetailScreen from "./src/views/ProductDetailScreen";
 import ReviewsScreen from "./src/views/ReviewsScreen";
 import CartScreen from "./src/views/CartScreen";
 import PaymentScreen from "./src/views/PaymentScreen";
+import OrderConfirmationScreen from "./src/views/OrderConfirmationScreen";
 import NotificationsScreen from "./src/views/NotificationsScreen";
 import SettingsScreen from "./src/views/SettingsScreen";
 import MessagesScreen from "./src/views/MessagesScreen";
@@ -78,6 +79,7 @@ export default function App() {
               <Stack.Screen name="Reviews" component={ReviewsScreen} />
               <Stack.Screen name="Cart" component={CartScreen} />
               <Stack.Screen name="Payment" component={PaymentScreen} />
+              <Stack.Screen name="OrderConfirmation" component={OrderConfirmationScreen} />
               <Stack.Screen name="Notifications" component={NotificationsScreen} />
               <Stack.Screen name="Settings" component={SettingsScreen} />
               <Stack.Screen name="Messages" component={MessagesScreen} />
