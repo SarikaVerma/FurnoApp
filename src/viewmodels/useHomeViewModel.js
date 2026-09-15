@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { productsService } from "../services/productsService";
 import { cartService } from "../services/cartService";
 import { ProductList } from "../models/Product";
@@ -44,9 +45,16 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
     load(incomingFilters || {});
   }, [load, incomingFilters]);
 
-  useEffect(() => {
-    cartService.list(userId).then(applyCartRows);
-  }, [userId, applyCartRows]);
+  // The stack navigator reuses this screen instance instead of remounting
+  // it, so a mount-only effect would keep showing stale per-product counts
+  // after checkout clears the cart elsewhere (Cart -> Payment -> Order
+  // confirmation -> back to this same Home instance). Refresh on every
+  // focus instead, same fix already applied to useCartViewModel.
+  useFocusEffect(
+    useCallback(() => {
+      cartService.list(userId).then(applyCartRows);
+    }, [userId, applyCartRows])
+  );
 
   const addToCart = useCallback(
     async (productId, delta = 1) => {
