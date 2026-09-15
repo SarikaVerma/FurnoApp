@@ -26,6 +26,9 @@ export const ordersService = {
       status: "placed",
       total,
       created_at: new Date().toISOString(),
+      // Fixed 5-day estimate — good enough for a training POC with no real
+      // shipping/carrier integration.
+      eta: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
       items: cartItems.map((item) => ({
         name: item.name,
         icon: item.icon,
