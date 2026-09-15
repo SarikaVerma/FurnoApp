@@ -14,6 +14,7 @@ export function Order(raw) {
     status: raw.status,
     total: raw.total,
     createdAt: raw.created_at,
+    eta: raw.eta,
     items: (raw.items || []).map(OrderItem),
   };
 }
