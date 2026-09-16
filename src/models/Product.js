@@ -10,7 +10,7 @@ export function Product(raw) {
     wasPrice: raw.was_price ?? null,
     description: raw.description ?? "",
     icon: raw.icon ?? "sofa",
-    color: raw.color ?? "#D0233A",
+    color: raw.color ?? "#BF6E72",
   };
 }
 
