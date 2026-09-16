@@ -4,7 +4,7 @@ import { authService } from "./authService";
 // getCurrentUser fetches the hosted mock profile (avatar, balance, payment
 // methods, notification defaults — fields that have no real signup flow),
 // then overlays the actual logged-in session's identity fields (name,
-// phone, city) on top. Without this overlay, the profile always showed
+// email, city) on top. Without this overlay, the profile always showed
 // the static mock name/city regardless of what someone actually signed
 // up with.
 export const userService = {
@@ -17,7 +17,7 @@ export const userService = {
     return {
       ...base,
       name: session.name || base.name,
-      phone: session.phone || base.phone,
+      email: session.email || base.email,
       city: session.city || base.city,
     };
   },
