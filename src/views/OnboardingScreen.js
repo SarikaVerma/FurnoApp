@@ -42,8 +42,8 @@ export default function OnboardingScreen({ navigation }) {
 const styles = StyleSheet.create({
   fill: { flex: 1 },
   content: { flex: 1, paddingHorizontal: 32, paddingTop: 32, ...CENTERED_CONTENT },
-  brand: { color: colors.ink, fontSize: 56, fontWeight: "800", letterSpacing: -1, lineHeight: 60 },
-  subtitle: { color: colors.ink, fontSize: 14, fontWeight: "500", marginTop: 2, opacity: 0.7 },
+  brand: { color: colors.ink, fontSize: 56, fontWeight: "800", letterSpacing: -1, lineHeight: 60, textAlign: "center" },
+  subtitle: { color: colors.ink, fontSize: 14, fontWeight: "500", marginTop: 2, opacity: 0.7, textAlign: "center" },
   iconWrap: { flex: 1, alignItems: "center", justifyContent: "center" },
   footer: { paddingHorizontal: 32, paddingBottom: 32, ...CENTERED_CONTENT },
   // Was white-on-gradient before; the new gradient fades to a pale tint
