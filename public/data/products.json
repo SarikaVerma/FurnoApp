@@ -10,10 +10,20 @@
     "inStock": true,
     "icon": "sofa",
     "color": "#D0233A",
-    "colors": ["#1B1420", "#8A8690", "#5C2A6B", "#D0432B"],
+    "colors": [
+      "#1B1420",
+      "#8A8690",
+      "#5C2A6B",
+      "#D0432B"
+    ],
     "description": "A generously cushioned three-seat sofa in warm terracotta, with a solid oak frame and removable, machine-washable covers. Built for everyday living rooms that see a lot of use.",
-    "dimensions": { "widthCm": 210, "depthCm": 90, "heightCm": 85 },
-    "material": "Oak frame, cotton-blend upholstery"
+    "dimensions": {
+      "widthCm": 210,
+      "depthCm": 90,
+      "heightCm": 85
+    },
+    "material": "Oak frame, cotton-blend upholstery",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/ORANGE_SOFA.jpg/960px-ORANGE_SOFA.jpg"
   },
   {
     "id": "p002",
@@ -26,10 +36,19 @@
     "inStock": true,
     "icon": "armchair",
     "color": "#4B1C46",
-    "colors": ["#8E4FBF", "#3D7FD1", "#F0A63B"],
+    "colors": [
+      "#8E4FBF",
+      "#3D7FD1",
+      "#F0A63B"
+    ],
     "description": "Compact accent armchair with a gently curved backrest, upholstered in brushed cotton. Fits well in reading nooks and smaller living spaces.",
-    "dimensions": { "widthCm": 78, "depthCm": 80, "heightCm": 90 },
-    "material": "Beech legs, brushed cotton upholstery"
+    "dimensions": {
+      "widthCm": 78,
+      "depthCm": 80,
+      "heightCm": 90
+    },
+    "material": "Beech legs, brushed cotton upholstery",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Yellow_upholstered_armchair_in_IKEA_Torp_Uddevalla.jpg/960px-Yellow_upholstered_armchair_in_IKEA_Torp_Uddevalla.jpg"
   },
   {
     "id": "p003",
@@ -42,10 +61,18 @@
     "inStock": true,
     "icon": "bed",
     "color": "#8E4FBF",
-    "colors": ["#1B1420", "#8A8690"],
-    "description": "Queen-size platform bed with an upholstered headboard and integrated slats — no box spring required.",
-    "dimensions": { "widthCm": 160, "depthCm": 210, "heightCm": 110 },
-    "material": "Solid pine frame, linen headboard"
+    "colors": [
+      "#1B1420",
+      "#8A8690"
+    ],
+    "description": "Queen-size platform bed with an upholstered headboard and integrated slats \u2014 no box spring required.",
+    "dimensions": {
+      "widthCm": 160,
+      "depthCm": 210,
+      "heightCm": 110
+    },
+    "material": "Solid pine frame, linen headboard",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Balanced_Modern_Bedroom_Design_with_Neutral_Tones_and_Layered_Lighting.jpg/960px-Balanced_Modern_Bedroom_Design_with_Neutral_Tones_and_Layered_Lighting.jpg"
   },
   {
     "id": "p004",
@@ -58,10 +85,19 @@
     "inStock": true,
     "icon": "chair",
     "color": "#F0A63B",
-    "colors": ["#FFFFFF", "#1B1420", "#F0A63B"],
+    "colors": [
+      "#FFFFFF",
+      "#1B1420",
+      "#F0A63B"
+    ],
     "description": "Minimalist dining chair in solid beech, stackable for easy storage. Sold individually.",
-    "dimensions": { "widthCm": 45, "depthCm": 50, "heightCm": 82 },
-    "material": "Solid beech"
+    "dimensions": {
+      "widthCm": 45,
+      "depthCm": 50,
+      "heightCm": 82
+    },
+    "material": "Solid beech",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Beautiful_Chair_from_Wood.jpg"
   },
   {
     "id": "p005",
@@ -74,10 +110,18 @@
     "inStock": false,
     "icon": "sofa",
     "color": "#3D7FD1",
-    "colors": ["#3D7FD1", "#3FB6A8"],
+    "colors": [
+      "#3D7FD1",
+      "#3FB6A8"
+    ],
     "description": "A cooler-toned take on our three-seat sofa, in cobalt blue with a solid oak frame. Currently out of stock while we restock this colorway.",
-    "dimensions": { "widthCm": 210, "depthCm": 90, "heightCm": 85 },
-    "material": "Oak frame, cotton-blend upholstery"
+    "dimensions": {
+      "widthCm": 210,
+      "depthCm": 90,
+      "heightCm": 85
+    },
+    "material": "Oak frame, cotton-blend upholstery",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Ligne_Roset_MULTY_Schlafsofa.jpg/960px-Ligne_Roset_MULTY_Schlafsofa.jpg"
   },
   {
     "id": "p006",
@@ -90,10 +134,18 @@
     "inStock": true,
     "icon": "bookshelf",
     "color": "#8A8690",
-    "colors": ["#8A8690", "#1B1420"],
+    "colors": [
+      "#8A8690",
+      "#1B1420"
+    ],
     "description": "Five-tier open bookshelf with a powder-coated steel frame and engineered wood shelves.",
-    "dimensions": { "widthCm": 80, "depthCm": 30, "heightCm": 180 },
-    "material": "Steel frame, engineered wood"
+    "dimensions": {
+      "widthCm": 80,
+      "depthCm": 30,
+      "heightCm": 180
+    },
+    "material": "Steel frame, engineered wood",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Billy_Bookcase.jpg/960px-Billy_Bookcase.jpg"
   },
   {
     "id": "p007",
@@ -106,10 +158,18 @@
     "inStock": true,
     "icon": "table",
     "color": "#8DC63F",
-    "colors": ["#FFFFFF", "#1B1420"],
+    "colors": [
+      "#FFFFFF",
+      "#1B1420"
+    ],
     "description": "Round coffee table with a tempered-glass top and a tapered oak base.",
-    "dimensions": { "widthCm": 90, "depthCm": 90, "heightCm": 40 },
-    "material": "Tempered glass, solid oak"
+    "dimensions": {
+      "widthCm": 90,
+      "depthCm": 90,
+      "heightCm": 40
+    },
+    "material": "Tempered glass, solid oak",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Noguchi_Coffee_Table_%282599969608%29.jpg/960px-Noguchi_Coffee_Table_%282599969608%29.jpg"
   },
   {
     "id": "p008",
@@ -122,10 +182,18 @@
     "inStock": true,
     "icon": "table",
     "color": "#5C2A6B",
-    "colors": ["#5C2A6B", "#8A8690"],
+    "colors": [
+      "#5C2A6B",
+      "#8A8690"
+    ],
     "description": "Six-seat extendable dining table in solid walnut, seats up to eight when extended.",
-    "dimensions": { "widthCm": 180, "depthCm": 95, "heightCm": 75 },
-    "material": "Solid walnut"
+    "dimensions": {
+      "widthCm": 180,
+      "depthCm": 95,
+      "heightCm": 75
+    },
+    "material": "Solid walnut",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Comedor_de_madera_y_vidrio_nogal.jpg/960px-Comedor_de_madera_y_vidrio_nogal.jpg"
   },
   {
     "id": "p009",
@@ -138,10 +206,18 @@
     "inStock": true,
     "icon": "wardrobe",
     "color": "#1B1420",
-    "colors": ["#1B1420", "#FFFFFF"],
+    "colors": [
+      "#1B1420",
+      "#FFFFFF"
+    ],
     "description": "Three-door wardrobe with a full-length mirror, hanging rail, and four internal shelves.",
-    "dimensions": { "widthCm": 150, "depthCm": 60, "heightCm": 200 },
-    "material": "Engineered wood, mirrored glass"
+    "dimensions": {
+      "widthCm": 150,
+      "depthCm": 60,
+      "heightCm": 200
+    },
+    "material": "Engineered wood, mirrored glass",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Sliding-wardrobe.jpg"
   },
   {
     "id": "p010",
@@ -154,9 +230,18 @@
     "inStock": true,
     "icon": "lamp",
     "color": "#F0A63B",
-    "colors": ["#F0A63B", "#1B1420", "#8A8690"],
+    "colors": [
+      "#F0A63B",
+      "#1B1420",
+      "#8A8690"
+    ],
     "description": "Arc floor lamp with a fabric drum shade and a weighted marble base.",
-    "dimensions": { "widthCm": 35, "depthCm": 35, "heightCm": 155 },
-    "material": "Steel, marble base, fabric shade"
+    "dimensions": {
+      "widthCm": 35,
+      "depthCm": 35,
+      "heightCm": 155
+    },
+    "material": "Steel, marble base, fabric shade",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Golvlampa_retro.jpg/960px-Golvlampa_retro.jpg"
   }
 ]
