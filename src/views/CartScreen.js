@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Minus, Plus, ShoppingCart } from "lucide-react-native";
@@ -53,7 +54,11 @@ export default function CartScreen({ navigation }) {
             return (
               <View key={item.cartItemId} style={styles.item}>
                 <View style={styles.itemIcon}>
-                  <ProductIllustration icon={item.product.icon} color={item.product.color} size={28} />
+                  {item.product.imageUrl ? (
+                    <Image source={{ uri: item.product.imageUrl }} style={styles.itemImage} resizeMode="cover" />
+                  ) : (
+                    <ProductIllustration icon={item.product.icon} color={item.product.color} size={28} />
+                  )}
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.itemName}>{item.product.name}</Text>
@@ -125,7 +130,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.chip,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
   },
+  itemImage: { width: "100%", height: "100%" },
   itemName: { fontSize: 14, fontWeight: "600", color: colors.ink },
   itemPrice: { fontSize: 13, fontWeight: "700", color: colors.plum, marginTop: 2 },
   stepper: {
