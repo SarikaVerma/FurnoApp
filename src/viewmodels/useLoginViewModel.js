@@ -4,7 +4,7 @@ import { validateCredentials } from "../utils/validators";
 
 export function useLoginViewModel() {
   const [mode, setMode] = useState("login"); // "login" | "signup"
-  const [email, setEmail] = useState("demo@furno.app");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
