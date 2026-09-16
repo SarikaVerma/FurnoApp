@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { productsService } from "../services/productsService";
 import { categoriesService } from "../services/categoriesService";
@@ -9,7 +9,7 @@ import { ProductList } from "../models/Product";
 // just calls the functions this returns and renders the data — it never
 // talks to the service layer or touches raw API shapes directly.
 export function useHomeViewModel(userId = "guest", incomingFilters = null) {
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,7 +31,7 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
     setError(null);
     try {
       const raw = await productsService.list(filters);
-      setProducts(ProductList(raw));
+      setAllProducts(ProductList(raw));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -63,6 +63,15 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
       cartService.list(userId).then(applyCartRows);
     }, [userId, applyCartRows])
   );
+
+  // Filtered client-side over the already-loaded list rather than
+  // re-fetching products.json on every keystroke — search doesn't need a
+  // network round trip, category/price/color already handled that above.
+  const products = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return allProducts;
+    return allProducts.filter((p) => p.name.toLowerCase().includes(q));
+  }, [allProducts, search]);
 
   const addToCart = useCallback(
     async (productId, delta = 1) => {
