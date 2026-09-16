@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, SlidersHorizontal } from "lucide-react-native";
-import { GradientHeader, PrimaryButton, SimpleSlider, CENTERED_CONTENT } from "../components/Shared";
+import { GradientHeader, PrimaryButton, SimpleSlider } from "../components/Shared";
 import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useFiltersViewModel } from "../viewmodels/useFiltersViewModel";
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
   headerRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 4 },
   headerTitle: { color: "#fff", fontSize: 15, fontWeight: "700" },
-  content: { flex: 1, paddingHorizontal: 24, paddingTop: 20, ...CENTERED_CONTENT },
+  content: { flex: 1, paddingHorizontal: 24, paddingTop: 20 },
   rowBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   sectionTitle: { fontSize: 14, fontWeight: "700", color: colors.ink, marginBottom: 12 },
   categoryRow: { flexDirection: "row", flexWrap: "wrap", gap: 12, marginBottom: 28 },
@@ -103,5 +103,5 @@ const styles = StyleSheet.create({
   swatchGrid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   swatch: { height: 32, width: 32, borderRadius: 16 },
   swatchActive: { borderWidth: 2, borderColor: colors.plum },
-  footer: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 12, ...CENTERED_CONTENT },
+  footer: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 12 },
 });
