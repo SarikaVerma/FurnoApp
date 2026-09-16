@@ -2,7 +2,7 @@ export function User(raw) {
   return {
     id: raw.id,
     name: raw.name,
-    phone: raw.phone,
+    email: raw.email,
     city: raw.city,
     avatarUrl: raw.avatarUrl ?? null,
     furpayBalance: raw.furpayBalance ?? 0,
