@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../theme";
-import { CENTERED_CONTENT } from "../components/Shared";
+import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { LivingRoomIllustration } from "../components/LivingRoomIllustration";
 
 // Deliberately its own two-stop gradient rather than the shared
@@ -25,9 +25,10 @@ export default function OnboardingScreen({ navigation }) {
           </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.cta} activeOpacity={0.9} onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.ctaText}>Get started</Text>
-          </TouchableOpacity>
+          {/* Same PrimaryButton component the Login/Signup button uses,
+              so this is guaranteed to look identical rather than a
+              separately-styled lookalike. */}
+          <PrimaryButton label="Get started" onPress={() => navigation.navigate("Login")} />
           <Text style={styles.footerText}>
             Already have an account?{" "}
             <Text style={styles.link} onPress={() => navigation.navigate("Login")}>Sign in here</Text>
@@ -45,8 +46,6 @@ const styles = StyleSheet.create({
   subtitle: { color: colors.ink, fontSize: 14, fontWeight: "500", marginTop: 2, opacity: 0.7 },
   iconWrap: { flex: 1, alignItems: "center", justifyContent: "center" },
   footer: { paddingHorizontal: 32, paddingBottom: 32, ...CENTERED_CONTENT },
-  cta: { backgroundColor: "#FF914D", borderRadius: 999, paddingVertical: 16, alignItems: "center" },
-  ctaText: { color: colors.plum, fontSize: 15, fontWeight: "700" },
   // Was white-on-gradient before; the new gradient fades to a pale tint
   // right where this sits, so white text would be unreadable there —
   // switched to dark ink to keep this actually legible, everything else
