@@ -4,8 +4,22 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../theme";
 
+// On a wide desktop browser this app's phone-width UI would otherwise
+// stretch edge to edge — headers, buttons and text all sprawling across
+// the window. Backgrounds (this gradient, a screen's white sheet) should
+// still fill the browser normally, only the actual content inside them
+// caps out at a comfortable width and centers. Screens spread
+// CENTERED_CONTENT into their own content/sheet style for the same effect.
+export const CONTENT_MAX_WIDTH = 480;
+export const CENTERED_CONTENT = {
+  width: "100%",
+  maxWidth: CONTENT_MAX_WIDTH,
+  alignSelf: "center",
+};
+
 // Header gradient wrapper used by every screen (matches the amber -> crimson
-// header from the source mockups).
+// header from the source mockups). The gradient itself stays full width;
+// only its content (title, search bar, etc.) is centered/capped.
 export function GradientHeader({ children, style }) {
   return (
     <LinearGradient
@@ -14,7 +28,7 @@ export function GradientHeader({ children, style }) {
       end={{ x: 0.6, y: 1 }}
       style={[styles.header, style]}
     >
-      {children}
+      <View style={styles.headerInner}>{children}</View>
     </LinearGradient>
   );
 }
@@ -47,22 +61,26 @@ export function handleTabPress(navigation, key) {
   }
 }
 
-// Bottom tab bar shared by the Profile and Catalog screens.
+// Bottom tab bar shared by the Profile and Catalog screens. The bar's
+// background/border-top stays full width (tabBarOuter); only the icon row
+// itself is centered/capped, matching the content above it.
 export function TabBar({ active, onNavigate, Icons }) {
   return (
-    <View style={styles.tabBar}>
-      {Icons.map(({ key, Icon }) => {
-        const isActive = active === key;
-        return (
-          <TouchableOpacity
-            key={key}
-            onPress={() => onNavigate(key)}
-            style={[styles.tabButton, isActive && styles.tabButtonActive]}
-          >
-            <Icon size={20} color={isActive ? colors.crimson : "#C9BFC5"} />
-          </TouchableOpacity>
-        );
-      })}
+    <View style={styles.tabBarOuter}>
+      <View style={styles.tabBar}>
+        {Icons.map(({ key, Icon }) => {
+          const isActive = active === key;
+          return (
+            <TouchableOpacity
+              key={key}
+              onPress={() => onNavigate(key)}
+              style={[styles.tabButton, isActive && styles.tabButtonActive]}
+            >
+              <Icon size={20} color={isActive ? colors.crimson : "#C9BFC5"} />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -149,6 +167,11 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 24,
   },
+  headerInner: {
+    width: "100%",
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: "center",
+  },
   button: {
     width: "100%",
     borderRadius: 999,
@@ -162,16 +185,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
   },
-  tabBar: {
+  tabBarOuter: {
     marginTop: "auto",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
     borderTopWidth: 1,
     borderTopColor: colors.line,
     backgroundColor: colors.white,
+    alignItems: "center",
+  },
+  tabBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
     paddingVertical: 12,
     paddingHorizontal: 16,
+    width: "100%",
+    maxWidth: CONTENT_MAX_WIDTH,
   },
   tabButton: {
     padding: 8,
