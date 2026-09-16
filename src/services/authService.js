@@ -1,26 +1,27 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { normalizePhone } from "../utils/validators";
+import { normalizeEmail } from "../utils/validators";
 
 // Same in-memory-during-session pattern as cartService/ordersService, but
-// the user list and current session are also mirrored to AsyncStorage
-// (localStorage on web) so a page reload doesn't wipe out an account you
-// just signed up with, or sign you out.
+// the user list, current session, and any pending email-verification code
+// are also mirrored to AsyncStorage (localStorage on web) so a page reload
+// doesn't wipe out an account you just signed up with, or sign you out.
 //
 // Regex format validation happens in the ViewModel (via validators.js)
 // before these functions are ever called — this service only checks
-// business rules: does the phone exist, does the password match, is the
-// phone already taken.
+// business rules: does the email exist, does the password match, is the
+// email already taken.
 
 const delay = (ms = 300) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const USERS_KEY = "furno.users";
 const SESSION_KEY = "furno.session";
+const PENDING_KEY = "furno.pendingVerification";
 
 function seedUsers() {
   return [
     {
       id: "u_demo",
-      phone: normalizePhone("+0 (000) 000-00-00"),
+      email: normalizeEmail("demo@furno.app"),
       password: "Passw0rd1",
       name: "Your Name",
       city: "City",
@@ -28,12 +29,18 @@ function seedUsers() {
   ];
 }
 
+function genCode() {
+  return String(Math.floor(1000 + Math.random() * 9000));
+}
+
 let users = null;
 let currentSession = null;
+let pendingVerification = null; // { email, code } | null
 let hydrated = null;
 
-// Loads persisted users/session into memory exactly once. Every exported
-// method awaits this first so callers never race the initial storage read.
+// Loads persisted users/session/pending-code into memory exactly once.
+// Every exported method awaits this first so callers never race the
+// initial storage read.
 function hydrate() {
   if (!hydrated) {
     hydrated = (async () => {
@@ -48,6 +55,12 @@ function hydrate() {
         currentSession = stored ? JSON.parse(stored) : null;
       } catch {
         currentSession = null;
+      }
+      try {
+        const stored = await AsyncStorage.getItem(PENDING_KEY);
+        pendingVerification = stored ? JSON.parse(stored) : null;
+      } catch {
+        pendingVerification = null;
       }
     })();
   }
@@ -66,36 +79,54 @@ async function persistSession() {
   }
 }
 
+async function persistPending() {
+  if (pendingVerification) {
+    await AsyncStorage.setItem(PENDING_KEY, JSON.stringify(pendingVerification));
+  } else {
+    await AsyncStorage.removeItem(PENDING_KEY);
+  }
+}
+
 export const authService = {
-  async login(phone, password) {
+  async login(email, password) {
     await hydrate();
     await delay();
-    const normalized = normalizePhone(phone);
-    const user = users.find((u) => u.phone === normalized);
+    const normalized = normalizeEmail(email);
+    const user = users.find((u) => u.email === normalized);
 
     if (!user || user.password !== password) {
-      throw new Error("Incorrect phone number or password.");
+      throw new Error("Incorrect email or password.");
     }
 
-    currentSession = { id: user.id, phone: user.phone, name: user.name, city: user.city };
+    currentSession = { id: user.id, email: user.email, name: user.name, city: user.city };
     await persistSession();
     return currentSession;
   },
 
-  async register(phone, password, name = "New User", city = "") {
+  async register(email, password, name = "New User", city = "") {
     await hydrate();
     await delay();
-    const normalized = normalizePhone(phone);
+    const normalized = normalizeEmail(email);
 
-    if (users.some((u) => u.phone === normalized)) {
-      throw new Error("An account with this phone number already exists.");
+    if (users.some((u) => u.email === normalized)) {
+      throw new Error("An account with this email already exists.");
     }
 
-    const user = { id: `u_${Date.now()}`, phone: normalized, password, name, city };
+    const user = { id: `u_${Date.now()}`, email: normalized, password, name, city };
     users.push(user);
     await persistUsers();
-    currentSession = { id: user.id, phone: user.phone, name: user.name, city: user.city };
+    currentSession = { id: user.id, email: user.email, name: user.name, city: user.city };
     await persistSession();
+
+    // There's no real email server in this POC — a real code is still
+    // generated and must be entered correctly on the Verification screen,
+    // it just can't actually be delivered to an inbox.
+    // getPendingVerification() exposes it so that screen can show it as an
+    // honest stand-in for "check your email" instead of silently accepting
+    // any 4 digits.
+    pendingVerification = { email: normalized, code: genCode() };
+    await persistPending();
+
     return currentSession;
   },
 
@@ -109,5 +140,24 @@ export const authService = {
   async getSession() {
     await hydrate();
     return currentSession;
+  },
+
+  async getPendingVerification() {
+    await hydrate();
+    return pendingVerification;
+  },
+
+  async verifyCode(code) {
+    await hydrate();
+    await delay(300);
+    if (!pendingVerification) {
+      throw new Error("Nothing to verify — try signing up again.");
+    }
+    if (code !== pendingVerification.code) {
+      throw new Error("That code doesn't match. Check the digits and try again.");
+    }
+    pendingVerification = null;
+    await persistPending();
+    return true;
   },
 };
