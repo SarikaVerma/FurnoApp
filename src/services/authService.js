@@ -16,6 +16,7 @@ const delay = (ms = 300) => new Promise((resolve) => setTimeout(resolve, ms));
 const USERS_KEY = "furno.users";
 const SESSION_KEY = "furno.session";
 const PENDING_KEY = "furno.pendingVerification";
+const PENDING_RESET_KEY = "furno.pendingReset";
 
 function seedUsers() {
   return [
@@ -36,6 +37,7 @@ function genCode() {
 let users = null;
 let currentSession = null;
 let pendingVerification = null; // { email, code } | null
+let pendingReset = null; // { email, code } | null
 let hydrated = null;
 
 // Loads persisted users/session/pending-code into memory exactly once.
@@ -62,6 +64,12 @@ function hydrate() {
       } catch {
         pendingVerification = null;
       }
+      try {
+        const stored = await AsyncStorage.getItem(PENDING_RESET_KEY);
+        pendingReset = stored ? JSON.parse(stored) : null;
+      } catch {
+        pendingReset = null;
+      }
     })();
   }
   return hydrated;
@@ -84,6 +92,14 @@ async function persistPending() {
     await AsyncStorage.setItem(PENDING_KEY, JSON.stringify(pendingVerification));
   } else {
     await AsyncStorage.removeItem(PENDING_KEY);
+  }
+}
+
+async function persistPendingReset() {
+  if (pendingReset) {
+    await AsyncStorage.setItem(PENDING_RESET_KEY, JSON.stringify(pendingReset));
+  } else {
+    await AsyncStorage.removeItem(PENDING_RESET_KEY);
   }
 }
 
@@ -158,6 +174,48 @@ export const authService = {
     }
     pendingVerification = null;
     await persistPending();
+    return true;
+  },
+
+  async requestPasswordReset(email) {
+    await hydrate();
+    await delay();
+    const normalized = normalizeEmail(email);
+
+    if (!users.some((u) => u.email === normalized)) {
+      throw new Error("No account found with that email.");
+    }
+
+    // Same "no real email server" honesty as register()'s pendingVerification
+    // — the code is generated and required, just surfaced on-screen instead
+    // of delivered to an inbox.
+    pendingReset = { email: normalized, code: genCode() };
+    await persistPendingReset();
+    return true;
+  },
+
+  async getPendingReset() {
+    await hydrate();
+    return pendingReset;
+  },
+
+  async resetPassword(code, newPassword) {
+    await hydrate();
+    await delay(300);
+    if (!pendingReset) {
+      throw new Error("Nothing to reset — request a new code first.");
+    }
+    if (code !== pendingReset.code) {
+      throw new Error("That code doesn't match. Check the digits and try again.");
+    }
+    const user = users.find((u) => u.email === pendingReset.email);
+    if (!user) {
+      throw new Error("No account found with that email.");
+    }
+    user.password = newPassword;
+    await persistUsers();
+    pendingReset = null;
+    await persistPendingReset();
     return true;
   },
 };
