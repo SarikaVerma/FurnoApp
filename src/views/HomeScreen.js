@@ -13,6 +13,8 @@ import {
   Minus,
   Plus,
   SlidersHorizontal,
+  LayoutGrid,
+  ArrowUpRight,
   X,
   Store,
   ShoppingCart,
@@ -28,10 +30,26 @@ import { useHomeViewModel } from "../viewmodels/useHomeViewModel";
 // shaping, no business logic lives here — that's the ViewModel's job.
 export default function HomeScreen({ navigation, route }) {
   const activeFilters = route?.params?.filters;
-  const { products, loading, error, cartQuantities, addToCart, reload } = useHomeViewModel(
-    "guest",
-    activeFilters
-  );
+  const {
+    products,
+    categories,
+    selectedCategory,
+    loading,
+    error,
+    cartQuantities,
+    addToCart,
+    reload,
+  } = useHomeViewModel("guest", activeFilters);
+
+  // Category tiles apply instantly (no separate "Apply" step) by writing
+  // straight to the same route params Filters itself hands back — picking
+  // "All" clears it, matching the existing Clear-filters link below.
+  const selectCategory = (categoryId) => {
+    if (categoryId === selectedCategory) return;
+    navigation.setParams({
+      filters: categoryId ? { ...activeFilters, category: categoryId } : undefined,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.fill}>
@@ -43,7 +61,41 @@ export default function HomeScreen({ navigation, route }) {
       </GradientHeader>
 
       <View style={styles.sectionRow}>
-        <Text style={styles.sectionTitle}>Catalog</Text>
+        <Text style={styles.sectionTitle}>Product</Text>
+        <TouchableOpacity style={styles.seeMoreLink} onPress={() => navigation.navigate("Filters")}>
+          <Text style={styles.seeMoreText}>See More</Text>
+          <View style={styles.seeMoreIcon}>
+            <ArrowUpRight size={11} color={colors.plum} />
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.categoryGrid}>
+        <TouchableOpacity style={styles.categoryTile} onPress={() => selectCategory(null)}>
+          <View style={[styles.categoryIconWrap, !selectedCategory && styles.categoryIconWrapActive]}>
+            <LayoutGrid size={24} color="#fff" strokeWidth={1.8} />
+          </View>
+          <Text style={styles.categoryLabel}>All</Text>
+        </TouchableOpacity>
+        {categories.map((cat) => {
+          const active = selectedCategory === cat.id;
+          return (
+            <TouchableOpacity
+              key={cat.id}
+              style={styles.categoryTile}
+              onPress={() => selectCategory(cat.id)}
+            >
+              <View style={[styles.categoryIconWrap, active && styles.categoryIconWrapActive]}>
+                <ProductIllustration icon={cat.icon} color="#fff" size={26} />
+              </View>
+              <Text style={styles.categoryLabel}>{cat.label}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      <View style={styles.sectionRow}>
+        <Text style={styles.sectionTitle}>Best Sales</Text>
         <View style={styles.filterLinks}>
           {activeFilters ? (
             <TouchableOpacity
@@ -152,6 +204,36 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   sectionTitle: { fontSize: 16, fontWeight: "700", color: colors.ink },
+  seeMoreLink: { flexDirection: "row", alignItems: "center", gap: 6 },
+  seeMoreText: { fontSize: 12.5, fontWeight: "600", color: colors.muted },
+  seeMoreIcon: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    backgroundColor: colors.chip,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  categoryGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 8,
+    gap: 16,
+  },
+  categoryTile: { width: "22%", alignItems: "center", gap: 6 },
+  categoryIconWrap: {
+    width: 60,
+    height: 60,
+    borderRadius: 18,
+    backgroundColor: colors.plum,
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: 0.55,
+  },
+  categoryIconWrapActive: { opacity: 1 },
+  categoryLabel: { fontSize: 11.5, fontWeight: "600", color: colors.ink, textAlign: "center" },
   deployNote: {
     fontSize: 11,
     color: colors.muted,
