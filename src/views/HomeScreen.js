@@ -19,7 +19,7 @@ import {
   User,
   Settings,
 } from "lucide-react-native";
-import { GradientHeader, TabBar, handleTabPress } from "../components/Shared";
+import { GradientHeader, TabBar, handleTabPress, CENTERED_CONTENT } from "../components/Shared";
 import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useHomeViewModel } from "../viewmodels/useHomeViewModel";
@@ -74,7 +74,7 @@ export default function HomeScreen({ navigation, route }) {
         </View>
       ) : (
         <ScrollView
-          style={{ flex: 1, minHeight: 0, paddingHorizontal: 20 }}
+          style={{ flex: 1, minHeight: 0, paddingHorizontal: 20, ...CENTERED_CONTENT }}
           contentContainerStyle={{ paddingBottom: 24 }}
         >
           {products.map((item) => {
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 4,
+    ...CENTERED_CONTENT,
   },
   sectionTitle: { fontSize: 16, fontWeight: "700", color: colors.ink },
   deployNote: {
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingHorizontal: 20,
     paddingBottom: 8,
+    ...CENTERED_CONTENT,
   },
   filterLinks: { flexDirection: "row", alignItems: "center", gap: 16 },
   filterLink: { flexDirection: "row", alignItems: "center", gap: 4 },
