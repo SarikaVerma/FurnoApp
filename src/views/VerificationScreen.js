@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Mail } from "lucide-react-native";
-import { PrimaryButton } from "../components/Shared";
+import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { colors } from "../theme";
 import { useVerificationViewModel } from "../viewmodels/useVerificationViewModel";
 
@@ -56,9 +56,9 @@ export default function VerificationScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
-  header: { paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 },
+  header: { paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8, ...CENTERED_CONTENT },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
-  content: { flex: 1, alignItems: "center", paddingHorizontal: 32, paddingTop: 24 },
+  content: { flex: 1, alignItems: "center", paddingHorizontal: 32, paddingTop: 24, ...CENTERED_CONTENT },
   iconWrap: { height: 100, width: 100, borderRadius: 50, backgroundColor: colors.chip, alignItems: "center", justifyContent: "center", marginBottom: 20 },
   title: { fontSize: 16, fontWeight: "700", color: colors.ink, marginBottom: 24 },
   digitsRow: { flexDirection: "row", gap: 14, marginBottom: 24 },
