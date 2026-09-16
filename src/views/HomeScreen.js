@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -141,7 +142,11 @@ export default function HomeScreen({ navigation, route }) {
                 onPress={() => navigation.navigate("ProductDetail", { id: item.id })}
               >
                 <View style={styles.itemIcon}>
-                  <ProductIllustration icon={item.icon} color={item.color} size={28} />
+                  {item.imageUrl ? (
+                    <Image source={{ uri: item.imageUrl }} style={styles.itemImage} resizeMode="cover" />
+                  ) : (
+                    <ProductIllustration icon={item.icon} color={item.color} size={28} />
+                  )}
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.itemName}>{item.name}</Text>
@@ -253,7 +258,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.chip,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
   },
+  itemImage: { width: "100%", height: "100%" },
   itemName: { fontSize: 14, fontWeight: "600", color: colors.ink },
   itemWas: { fontSize: 11, color: "#C9BFC5", textDecorationLine: "line-through" },
   stepper: {
