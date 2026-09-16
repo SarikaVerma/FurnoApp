@@ -29,6 +29,7 @@ function toRaw(item) {
     description: product.description,
     icon: product.icon,
     color: product.color,
+    imageUrl: product.imageUrl,
   };
 }
 
