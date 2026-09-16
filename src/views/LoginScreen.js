@@ -8,7 +8,7 @@ import { useLoginViewModel } from "../viewmodels/useLoginViewModel";
 export default function LoginScreen({ navigation }) {
   const {
     mode, setMode,
-    phone, setPhone,
+    email, setEmail,
     password, setPassword,
     name, setName,
     city, setCity,
@@ -66,14 +66,18 @@ export default function LoginScreen({ navigation }) {
           </>
         ) : null}
 
-        <Text style={styles.label}>Phone number</Text>
+        <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="phone-pad"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="you@example.com"
+          placeholderTextColor={colors.muted}
         />
-        {fieldErrors.phone ? <Text style={styles.fieldError}>{fieldErrors.phone}</Text> : null}
+        {fieldErrors.email ? <Text style={styles.fieldError}>{fieldErrors.email}</Text> : null}
 
         <Text style={styles.label}>Password</Text>
         <TextInput
@@ -98,7 +102,7 @@ export default function LoginScreen({ navigation }) {
 
         {mode === "login" ? (
           <Text style={styles.hint}>
-            Demo account — phone: +0 (000) 000-00-00, password: Passw0rd1
+            Demo account — email: demo@furno.app, password: Passw0rd1
           </Text>
         ) : null}
       </View>
