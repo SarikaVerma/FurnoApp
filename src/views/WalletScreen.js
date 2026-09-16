@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Smartphone, Landmark, MessageSquareText, Store, Wallet } from "lucide-react-native";
-import { PrimaryButton } from "../components/Shared";
+import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { colors } from "../theme";
 import { useWalletViewModel } from "../viewmodels/useWalletViewModel";
 
@@ -67,9 +67,9 @@ export default function WalletScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
-  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 },
+  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8, ...CENTERED_CONTENT },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
-  content: { flex: 1, paddingHorizontal: 24, paddingTop: 20 },
+  content: { flex: 1, paddingHorizontal: 24, paddingTop: 20, ...CENTERED_CONTENT },
   balanceCard: { backgroundColor: "#FBF3EF", borderWidth: 1, borderColor: colors.line, borderRadius: 16, paddingHorizontal: 20, paddingVertical: 20, marginBottom: 28 },
   balanceLabel: { fontSize: 12, fontWeight: "500", color: colors.muted },
   balanceValue: { fontSize: 26, fontWeight: "800", color: colors.plum, marginTop: 2 },
@@ -78,5 +78,5 @@ const styles = StyleSheet.create({
   rowLabel: { flex: 1, fontSize: 14, fontWeight: "500", color: colors.ink },
   chevron: { color: "#C9BFC5", fontSize: 16 },
   error: { color: colors.crimson, fontSize: 12, marginTop: 12 },
-  footer: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 12 },
+  footer: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 12, ...CENTERED_CONTENT },
 });
