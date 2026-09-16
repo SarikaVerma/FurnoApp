@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Heart, Star } from "lucide-react-native";
 import { colors } from "../theme";
@@ -41,7 +41,11 @@ export default function ProductDetailScreen({ navigation, route }) {
 
       <ScrollView style={[styles.content, { minHeight: 0 }]} contentContainerStyle={{ paddingBottom: 24 }}>
         <View style={styles.imageWrap}>
-          <ProductIllustration icon={product.icon} color={product.color} size={140} />
+          {product.imageUrl ? (
+            <Image source={{ uri: product.imageUrl }} style={styles.heroImage} resizeMode="cover" />
+          ) : (
+            <ProductIllustration icon={product.icon} color={product.color} size={140} />
+          )}
         </View>
 
         <View style={styles.titleRow}>
@@ -80,7 +84,8 @@ const styles = StyleSheet.create({
   header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
   content: { flex: 1, paddingHorizontal: 24 },
-  imageWrap: { height: 220, borderRadius: 20, backgroundColor: colors.chip, alignItems: "center", justifyContent: "center", marginBottom: 20 },
+  imageWrap: { height: 220, borderRadius: 20, backgroundColor: colors.chip, alignItems: "center", justifyContent: "center", marginBottom: 20, overflow: "hidden" },
+  heroImage: { width: "100%", height: "100%" },
   titleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 },
   label: { fontSize: 20, fontWeight: "700", color: colors.ink },
   price: { fontSize: 22, fontWeight: "800", color: colors.plum, marginTop: 2 },
