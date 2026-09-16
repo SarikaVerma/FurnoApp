@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckCircle2, MapPin, Truck } from "lucide-react-native";
-import { PrimaryButton } from "../components/Shared";
+import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { colors } from "../theme";
 import { useOrderConfirmationViewModel } from "../viewmodels/useOrderConfirmationViewModel";
 
@@ -58,7 +58,7 @@ export default function OrderConfirmationScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
-  content: { flex: 1, paddingHorizontal: 28, paddingTop: 64, alignItems: "center" },
+  content: { flex: 1, paddingHorizontal: 28, paddingTop: 64, alignItems: "center", ...CENTERED_CONTENT },
   iconWrap: { marginBottom: 20 },
   title: { fontSize: 22, fontWeight: "800", color: colors.ink, marginBottom: 8 },
   subtitle: { fontSize: 14, color: colors.muted, textAlign: "center", marginBottom: 8 },
@@ -74,5 +74,5 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "flex-start", gap: 12 },
   rowLabel: { fontSize: 12, color: colors.muted, marginBottom: 2 },
   rowValue: { fontSize: 14, fontWeight: "700", color: colors.ink },
-  footer: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 12 },
+  footer: { paddingHorizontal: 24, paddingBottom: 24, paddingTop: 12, ...CENTERED_CONTENT },
 });
