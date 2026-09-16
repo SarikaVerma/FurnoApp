@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, SlidersHorizontal } from "lucide-react-native";
 import { GradientHeader, PrimaryButton, SimpleSlider } from "../components/Shared";
-import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useFiltersViewModel } from "../viewmodels/useFiltersViewModel";
 
@@ -18,16 +17,13 @@ export default function FiltersScreen({ navigation, route }) {
   };
 
   const {
-    categories,
-    selectedCategory,
-    setSelectedCategory,
     minPrice,
     maxPrice,
     setMaxPrice,
     selectedColor,
     setSelectedColor,
     apply,
-  } = useFiltersViewModel(onApply);
+  } = useFiltersViewModel(onApply, route?.params?.filters);
 
   return (
     <SafeAreaView style={styles.fill}>
@@ -42,22 +38,6 @@ export default function FiltersScreen({ navigation, route }) {
       </GradientHeader>
 
       <View style={styles.content}>
-        <Text style={styles.sectionTitle}>Category</Text>
-        <View style={styles.categoryRow}>
-          {categories.map((cat) => {
-            const active = selectedCategory === cat.id;
-            return (
-              <TouchableOpacity
-                key={cat.id}
-                onPress={() => setSelectedCategory(active ? null : cat.id)}
-                style={[styles.categoryChip, active && styles.categoryChipActive]}
-              >
-                <ProductIllustration icon={cat.icon} color={colors.crimson} size={22} />
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-
         <Text style={styles.sectionTitle}>Pricing</Text>
         <SimpleSlider minimumValue={25} maximumValue={505} value={maxPrice} onValueChange={setMaxPrice} style={{ marginTop: 8 }} />
         <View style={styles.rowBetween}>
@@ -96,9 +76,6 @@ const styles = StyleSheet.create({
   content: { flex: 1, paddingHorizontal: 24, paddingTop: 20 },
   rowBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   sectionTitle: { fontSize: 14, fontWeight: "700", color: colors.ink, marginBottom: 12 },
-  categoryRow: { flexDirection: "row", flexWrap: "wrap", gap: 12, marginBottom: 28 },
-  categoryChip: { height: 56, width: 56, borderRadius: 16, borderWidth: 1, borderColor: colors.line, alignItems: "center", justifyContent: "center" },
-  categoryChipActive: { borderColor: colors.crimson, backgroundColor: colors.chip },
   priceLabel: { fontSize: 12, fontWeight: "600", color: colors.ink, marginBottom: 24 },
   swatchGrid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   swatch: { height: 32, width: 32, borderRadius: 16 },
