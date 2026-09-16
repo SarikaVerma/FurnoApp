@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { authService } from "../services/authService";
 
 export function useVerificationViewModel() {
-  const [digits, setDigits] = useState(["0", "5", "5", "8"]);
+  const [digits, setDigits] = useState(["", "", "", ""]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  // No real email server exists in this POC, so the code that would have
+  // been emailed is surfaced here instead of silently accepting any input.
+  const [demoCode, setDemoCode] = useState(null);
+
+  useEffect(() => {
+    authService.getPendingVerification().then((pending) => {
+      setDemoCode(pending?.code ?? null);
+    });
+  }, []);
 
   const setDigit = (value, index) => {
     setDigits((prev) => {
@@ -18,8 +28,12 @@ export function useVerificationViewModel() {
     setError(null);
     try {
       const code = digits.join("");
-      await new Promise((resolve) => setTimeout(resolve, 400));
-      return code.length === 4;
+      if (code.length !== 4) {
+        setError("Enter all 4 digits.");
+        return false;
+      }
+      await authService.verifyCode(code);
+      return true;
     } catch (err) {
       setError(err.message);
       return false;
@@ -28,5 +42,5 @@ export function useVerificationViewModel() {
     }
   };
 
-  return { digits, setDigit, submitting, error, verify };
+  return { digits, setDigit, submitting, error, verify, demoCode };
 }
