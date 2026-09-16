@@ -49,7 +49,8 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
-        <View style={[styles.root, Platform.OS === "web" && { height }]}>
+        <View style={[styles.webOuter, Platform.OS === "web" && { height }]}>
+          <View style={styles.webInner}>
         {checking ? (
           <View style={styles.loading}>
             <ActivityIndicator color={colors.crimson} />
@@ -86,8 +87,9 @@ export default function App() {
             </Stack.Navigator>
           </NavigationContainer>
         )}
-      </View>
-    </SafeAreaProvider>
+          </View>
+        </View>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }
@@ -97,6 +99,34 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       web: { overflow: "hidden" },
+      default: {},
+    }),
+  },
+  // On web this app renders inside a full-width browser viewport, but its
+  // screens were designed at phone width — left unconstrained, buttons,
+  // headers and text all stretch edge-to-edge across a desktop window.
+  // webOuter fills the viewport and centers webInner, which caps at a
+  // phone-like width; native platforms are untouched (Platform.select's
+  // default branch is empty), so this only ever applies on web.
+  webOuter: {
+    flex: 1,
+    ...Platform.select({
+      web: {
+        overflow: "hidden",
+        alignItems: "center",
+        backgroundColor: colors.line,
+      },
+      default: {},
+    }),
+  },
+  webInner: {
+    flex: 1,
+    width: "100%",
+    ...Platform.select({
+      web: {
+        maxWidth: 480,
+        boxShadow: "0 0 32px rgba(58, 46, 56, 0.10)",
+      },
       default: {},
     }),
   },
