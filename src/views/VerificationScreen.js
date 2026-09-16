@@ -7,7 +7,7 @@ import { colors } from "../theme";
 import { useVerificationViewModel } from "../viewmodels/useVerificationViewModel";
 
 export default function VerificationScreen({ navigation }) {
-  const { digits, setDigit, submitting, error, verify } = useVerificationViewModel();
+  const { digits, setDigit, submitting, error, verify, demoCode } = useVerificationViewModel();
   const inputs = useRef([]);
 
   const handleChange = (value, index) => {
@@ -43,8 +43,11 @@ export default function VerificationScreen({ navigation }) {
             />
           ))}
         </View>
-        <Text style={styles.helper}>Check the SMS</Text>
-        <Text style={styles.helperSub}>message to get a verification code</Text>
+        <Text style={styles.helper}>Check your email</Text>
+        <Text style={styles.helperSub}>for the 4-digit code we sent you</Text>
+        {demoCode ? (
+          <Text style={styles.demoHint}>No real email server in this demo — your code is {demoCode}</Text>
+        ) : null}
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <View style={{ marginTop: 32, width: "100%" }}>
           <PrimaryButton label={submitting ? "Verifying…" : "Continue"} onPress={handleSubmit} />
@@ -65,5 +68,6 @@ const styles = StyleSheet.create({
   digitBox: { height: 52, width: 44, borderRadius: 10, borderWidth: 1, borderColor: colors.line, textAlign: "center", fontSize: 20, fontWeight: "700", color: colors.ink },
   helper: { fontSize: 13, fontWeight: "600", color: colors.ink },
   helperSub: { fontSize: 12, color: colors.muted, marginTop: 2 },
+  demoHint: { fontSize: 11.5, color: colors.muted, marginTop: 12, textAlign: "center" },
   error: { color: colors.crimson, fontSize: 12, marginTop: 12 },
 });
