@@ -14,7 +14,6 @@ import {
   Plus,
   SlidersHorizontal,
   LayoutGrid,
-  ArrowUpRight,
   X,
   Store,
   ShoppingCart,
@@ -62,18 +61,12 @@ export default function HomeScreen({ navigation, route }) {
 
       <View style={styles.sectionRow}>
         <Text style={styles.sectionTitle}>Product</Text>
-        <TouchableOpacity style={styles.seeMoreLink} onPress={() => navigation.navigate("Filters")}>
-          <Text style={styles.seeMoreText}>See More</Text>
-          <View style={styles.seeMoreIcon}>
-            <ArrowUpRight size={11} color={colors.plum} />
-          </View>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.categoryGrid}>
         <TouchableOpacity style={styles.categoryTile} onPress={() => selectCategory(null)}>
           <View style={[styles.categoryIconWrap, !selectedCategory && styles.categoryIconWrapActive]}>
-            <LayoutGrid size={24} color="#fff" strokeWidth={1.8} />
+            <LayoutGrid size={12} color="#fff" strokeWidth={1.8} />
           </View>
           <Text style={styles.categoryLabel}>All</Text>
         </TouchableOpacity>
@@ -86,7 +79,7 @@ export default function HomeScreen({ navigation, route }) {
               onPress={() => selectCategory(cat.id)}
             >
               <View style={[styles.categoryIconWrap, active && styles.categoryIconWrapActive]}>
-                <ProductIllustration icon={cat.icon} color="#fff" size={26} />
+                <ProductIllustration icon={cat.icon} color="#fff" size={13} />
               </View>
               <Text style={styles.categoryLabel}>{cat.label}</Text>
             </TouchableOpacity>
@@ -204,16 +197,6 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   sectionTitle: { fontSize: 16, fontWeight: "700", color: colors.ink },
-  seeMoreLink: { flexDirection: "row", alignItems: "center", gap: 6 },
-  seeMoreText: { fontSize: 12.5, fontWeight: "600", color: colors.muted },
-  seeMoreIcon: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    backgroundColor: colors.chip,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   categoryGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -222,18 +205,18 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     gap: 16,
   },
-  categoryTile: { width: "22%", alignItems: "center", gap: 6 },
+  categoryTile: { width: "22%", alignItems: "center", gap: 4 },
   categoryIconWrap: {
-    width: 60,
-    height: 60,
-    borderRadius: 18,
+    width: 30,
+    height: 30,
+    borderRadius: 9,
     backgroundColor: colors.plum,
     alignItems: "center",
     justifyContent: "center",
     opacity: 0.55,
   },
   categoryIconWrapActive: { opacity: 1 },
-  categoryLabel: { fontSize: 11.5, fontWeight: "600", color: colors.ink, textAlign: "center" },
+  categoryLabel: { fontSize: 10, fontWeight: "600", color: colors.ink, textAlign: "center" },
   deployNote: {
     fontSize: 11,
     color: colors.muted,
