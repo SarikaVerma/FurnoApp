@@ -10,6 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import OnboardingScreen from "./src/views/OnboardingScreen";
 import LoginScreen from "./src/views/LoginScreen";
+import ForgotPasswordScreen from "./src/views/ForgotPasswordScreen";
 import VerificationScreen from "./src/views/VerificationScreen";
 import ProfileScreen from "./src/views/ProfileScreen";
 import HomeScreen from "./src/views/HomeScreen";
@@ -70,6 +71,7 @@ export default function App() {
             >
               <Stack.Screen name="Onboarding" component={OnboardingScreen} />
               <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
               <Stack.Screen name="Verification" component={VerificationScreen} />
               <Stack.Screen name="Profile" component={ProfileScreen} />
               <Stack.Screen name="Home" component={HomeScreen} />
