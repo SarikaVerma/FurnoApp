@@ -83,7 +83,7 @@ const SHAPES = {
   ),
 };
 
-export function ProductIllustration({ icon, color = "#D0233A", size = 34 }) {
+export function ProductIllustration({ icon, color = "#BF6E72", size = 34 }) {
   const shape = SHAPES[icon] || SHAPES.sofa;
   return (
     <Svg width={size} height={size} viewBox="0 0 64 64">
