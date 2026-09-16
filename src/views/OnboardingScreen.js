@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   subtitle: { color: colors.ink, fontSize: 14, fontWeight: "500", marginTop: 2, opacity: 0.7 },
   iconWrap: { flex: 1, alignItems: "center", justifyContent: "center" },
   footer: { paddingHorizontal: 32, paddingBottom: 32, ...CENTERED_CONTENT },
-  cta: { backgroundColor: "#fff", borderRadius: 999, paddingVertical: 16, alignItems: "center" },
+  cta: { backgroundColor: "#FF914D", borderRadius: 999, paddingVertical: 16, alignItems: "center" },
   ctaText: { color: colors.plum, fontSize: 15, fontWeight: "700" },
   // Was white-on-gradient before; the new gradient fades to a pale tint
   // right where this sits, so white text would be unreadable there —
