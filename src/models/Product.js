@@ -11,6 +11,7 @@ export function Product(raw) {
     description: raw.description ?? "",
     icon: raw.icon ?? "sofa",
     color: raw.color ?? "#BF6E72",
+    imageUrl: raw.imageUrl ?? null,
   };
 }
 
