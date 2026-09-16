@@ -2,19 +2,26 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { Sofa } from "lucide-react-native";
 import { colors } from "../theme";
 import { CENTERED_CONTENT } from "../components/Shared";
+import { LivingRoomIllustration } from "../components/LivingRoomIllustration";
+
+// Deliberately its own two-stop gradient rather than the shared
+// colors.gradFrom/gradTo (used by every screen's header) — this is a
+// one-off brand moment (rich peach fading to near-white), not the app's
+// everyday header treatment.
+const HERO_GRADIENT = ["#F6A868", "#FDF1E7"];
 
 // Pure navigation screen — no data, so no ViewModel needed.
 export default function OnboardingScreen({ navigation }) {
   return (
-    <LinearGradient colors={[colors.gradFrom, colors.gradTo]} style={styles.fill}>
+    <LinearGradient colors={HERO_GRADIENT} style={styles.fill}>
       <SafeAreaView style={styles.fill}>
         <View style={styles.content}>
-          <Text style={styles.title}>Online Furniture{"\n"}Store</Text>
+          <Text style={styles.brand}>Furno</Text>
+          <Text style={styles.subtitle}>Online Furniture Store</Text>
           <View style={styles.iconWrap}>
-            <Sofa size={140} strokeWidth={1} color="#fff" />
+            <LivingRoomIllustration width={288} height={182} />
           </View>
         </View>
         <View style={styles.footer}>
@@ -33,12 +40,17 @@ export default function OnboardingScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1 },
-  content: { flex: 1, paddingHorizontal: 32, paddingTop: 24, ...CENTERED_CONTENT },
-  title: { color: "#fff", fontSize: 28, fontWeight: "800", lineHeight: 34 },
-  iconWrap: { flex: 1, alignItems: "center", justifyContent: "center", opacity: 0.9 },
+  content: { flex: 1, paddingHorizontal: 32, paddingTop: 32, ...CENTERED_CONTENT },
+  brand: { color: colors.ink, fontSize: 56, fontWeight: "800", letterSpacing: -1, lineHeight: 60 },
+  subtitle: { color: colors.ink, fontSize: 14, fontWeight: "500", marginTop: 2, opacity: 0.7 },
+  iconWrap: { flex: 1, alignItems: "center", justifyContent: "center" },
   footer: { paddingHorizontal: 32, paddingBottom: 32, ...CENTERED_CONTENT },
   cta: { backgroundColor: "#fff", borderRadius: 999, paddingVertical: 16, alignItems: "center" },
   ctaText: { color: colors.plum, fontSize: 15, fontWeight: "700" },
-  footerText: { marginTop: 18, textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.85)" },
+  // Was white-on-gradient before; the new gradient fades to a pale tint
+  // right where this sits, so white text would be unreadable there —
+  // switched to dark ink to keep this actually legible, everything else
+  // about the control (label, action, position) is unchanged.
+  footerText: { marginTop: 18, textAlign: "center", fontSize: 13, color: colors.ink, opacity: 0.75 },
   link: { fontWeight: "700", textDecorationLine: "underline" },
 });
