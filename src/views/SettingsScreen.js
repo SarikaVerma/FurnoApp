@@ -5,7 +5,7 @@ import {
   User, Bell, CreditCard, Moon, Globe, ShieldCheck, HelpCircle, Info,
   LogOut, ChevronRight, Store, ShoppingCart, Settings as SettingsIcon,
 } from "lucide-react-native";
-import { GradientHeader, TabBar, handleTabPress, CENTERED_CONTENT } from "../components/Shared";
+import { GradientHeader, TabBar, handleTabPress } from "../components/Shared";
 import { colors } from "../theme";
 import { useSettingsViewModel } from "../viewmodels/useSettingsViewModel";
 
@@ -89,7 +89,7 @@ export default function SettingsScreen({ navigation }) {
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
   headerTitle: { color: "#fff", fontSize: 18, fontWeight: "800", marginTop: 6 },
-  sheet: { marginTop: -20, flex: 1, borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: "#fff", paddingHorizontal: 20, paddingTop: 20, ...CENTERED_CONTENT },
+  sheet: { marginTop: -20, flex: 1, borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: "#fff", paddingHorizontal: 20, paddingTop: 20 },
   sectionLabel: { fontSize: 11, fontWeight: "700", color: colors.muted, textTransform: "uppercase", letterSpacing: 0.5, marginTop: 18, marginBottom: 6 },
   row: { flexDirection: "row", alignItems: "center", gap: 12, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: colors.line },
   rowLabel: { flex: 1, fontSize: 14.5, fontWeight: "500", color: colors.ink },
