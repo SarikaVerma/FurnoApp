@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, CreditCard } from "lucide-react-native";
-import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
+import { PrimaryButton } from "../components/Shared";
 import { colors } from "../theme";
 import { usePaymentViewModel } from "../viewmodels/usePaymentViewModel";
 
@@ -100,9 +100,9 @@ export default function PaymentScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
-  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8, ...CENTERED_CONTENT },
+  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
-  content: { flex: 1, paddingHorizontal: 24, ...CENTERED_CONTENT },
+  content: { flex: 1, paddingHorizontal: 24 },
   card: { borderRadius: 18, padding: 18, marginTop: 8, marginBottom: 24, backgroundColor: colors.gradFrom },
   cardTopRow: { flexDirection: "row", marginBottom: 20 },
   cardBadge: { backgroundColor: "#fff", borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
@@ -115,5 +115,5 @@ const styles = StyleSheet.create({
   input: { fontSize: 14, color: colors.ink, borderBottomWidth: 1, borderBottomColor: colors.line, paddingVertical: 8, marginBottom: 18 },
   row: { flexDirection: "row" },
   error: { color: colors.crimson, fontSize: 12, marginBottom: 8 },
-  footer: { paddingHorizontal: 24, paddingTop: 8, paddingBottom: 24, ...CENTERED_CONTENT },
+  footer: { paddingHorizontal: 24, paddingTop: 8, paddingBottom: 24 },
 });
