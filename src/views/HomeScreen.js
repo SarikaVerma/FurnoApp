@@ -2,6 +2,7 @@ import React from "react";
 import {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
@@ -35,6 +36,8 @@ export default function HomeScreen({ navigation, route }) {
     selectedCategory,
     loading,
     error,
+    search,
+    setSearch,
     cartQuantities,
     addToCart,
     reload,
@@ -55,7 +58,14 @@ export default function HomeScreen({ navigation, route }) {
       <GradientHeader>
         <View style={styles.searchBar}>
           <Search size={17} color={colors.muted} />
-          <Text style={styles.searchPlaceholder}>Search…</Text>
+          <TextInput
+            style={styles.searchInput}
+            value={search}
+            onChangeText={setSearch}
+            placeholder="Search…"
+            placeholderTextColor={colors.muted}
+            returnKeyType="search"
+          />
         </View>
       </GradientHeader>
 
@@ -187,7 +197,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
-  searchPlaceholder: { fontSize: 14, color: colors.muted },
+  searchInput: { flex: 1, fontSize: 14, color: colors.ink, padding: 0 },
   sectionRow: {
     flexDirection: "row",
     justifyContent: "space-between",
