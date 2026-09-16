@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Sofa } from "lucide-react-native";
 import { colors } from "../theme";
+import { CENTERED_CONTENT } from "../components/Shared";
 
 // Pure navigation screen — no data, so no ViewModel needed.
 export default function OnboardingScreen({ navigation }) {
@@ -32,10 +33,10 @@ export default function OnboardingScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1 },
-  content: { flex: 1, paddingHorizontal: 32, paddingTop: 24 },
+  content: { flex: 1, paddingHorizontal: 32, paddingTop: 24, ...CENTERED_CONTENT },
   title: { color: "#fff", fontSize: 28, fontWeight: "800", lineHeight: 34 },
   iconWrap: { flex: 1, alignItems: "center", justifyContent: "center", opacity: 0.9 },
-  footer: { paddingHorizontal: 32, paddingBottom: 32 },
+  footer: { paddingHorizontal: 32, paddingBottom: 32, ...CENTERED_CONTENT },
   cta: { backgroundColor: "#fff", borderRadius: 999, paddingVertical: 16, alignItems: "center" },
   ctaText: { color: colors.plum, fontSize: 15, fontWeight: "700" },
   footerText: { marginTop: 18, textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.85)" },
