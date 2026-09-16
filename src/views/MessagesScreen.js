@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Mail } from "lucide-react-native";
 import { colors } from "../theme";
+import { CENTERED_CONTENT } from "../components/Shared";
 
 // No messages feature exists yet in this POC — this screen exists so
 // tapping "Messages" from Profile goes somewhere real instead of doing
@@ -38,9 +39,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 12,
     paddingBottom: 8,
+    ...CENTERED_CONTENT,
   },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
-  empty: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 40, gap: 10 },
+  empty: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 40, gap: 10, ...CENTERED_CONTENT },
   emptyTitle: { fontSize: 15, fontWeight: "700", color: colors.ink, marginTop: 4 },
   emptyText: { fontSize: 13, color: colors.muted, textAlign: "center", lineHeight: 19 },
 });
