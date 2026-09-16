@@ -1,13 +1,18 @@
+// Design tokens. All screens pull color from here — update a value once
+// and it cascades everywhere (headers, buttons, prices, active states).
+// Palette: muted/dusty pastels rather than the earlier saturated
+// orange/crimson, kept just dark enough on the accent tones (crimson,
+// plum) that button labels and price text stay legible on white.
 export const colors = {
-  gradFrom: "#F5A623",
-  gradTo: "#E0342A",
-  plum: "#4B1C46",
-  crimson: "#D0233A",
-  ink: "#2A1E29",
-  muted: "#8B8290",
+  gradFrom: "#F6C9A0",
+  gradTo: "#E8A6A0",
+  plum: "#8B6A87",
+  crimson: "#BF6E72",
+  ink: "#3A2E38",
+  muted: "#9C8F98",
   cream: "#FBF8F6",
   line: "#EFE7E4",
-  chip: "#FCEDEA",
+  chip: "#FBEEEA",
   white: "#FFFFFF",
 };
 
