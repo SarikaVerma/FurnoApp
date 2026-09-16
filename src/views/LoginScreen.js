@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { GradientHeader, PrimaryButton } from "../components/Shared";
+import { GradientHeader, PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { colors } from "../theme";
 import { useLoginViewModel } from "../viewmodels/useLoginViewModel";
 
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 24,
     paddingTop: 28,
+    ...CENTERED_CONTENT,
   },
   toggle: {
     flexDirection: "row",
