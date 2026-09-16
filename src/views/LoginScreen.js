@@ -98,7 +98,9 @@ export default function LoginScreen({ navigation }) {
             onPress={handleSubmit}
           />
         </View>
-        <Text style={styles.forgot}>Forgot your password?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
+          <Text style={styles.forgot}>Forgot your password?</Text>
+        </TouchableOpacity>
 
         {mode === "login" ? (
           <Text style={styles.hint}>
