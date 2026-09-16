@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Heart, Star } from "lucide-react-native";
 import { colors } from "../theme";
-import { CENTERED_CONTENT } from "../components/Shared";
 import { ProductIllustration } from "../components/ProductIllustration";
 import { useProductDetailViewModel } from "../viewmodels/useProductDetailViewModel";
 import { useReviewsViewModel } from "../viewmodels/useReviewsViewModel";
@@ -78,9 +77,9 @@ export default function ProductDetailScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
-  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8, ...CENTERED_CONTENT },
+  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
-  content: { flex: 1, paddingHorizontal: 24, ...CENTERED_CONTENT },
+  content: { flex: 1, paddingHorizontal: 24 },
   imageWrap: { height: 220, borderRadius: 20, backgroundColor: colors.chip, alignItems: "center", justifyContent: "center", marginBottom: 20 },
   titleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 },
   label: { fontSize: 20, fontWeight: "700", color: colors.ink },
