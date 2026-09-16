@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { productsService } from "../services/productsService";
+import { categoriesService } from "../services/categoriesService";
 import { cartService } from "../services/cartService";
 import { ProductList } from "../models/Product";
 
@@ -9,6 +10,7 @@ import { ProductList } from "../models/Product";
 // talks to the service layer or touches raw API shapes directly.
 export function useHomeViewModel(userId = "guest", incomingFilters = null) {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
@@ -37,13 +39,19 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
     }
   }, []);
 
-  // Re-runs whenever the Filters screen hands back a new filter set via
-  // navigation params. The stack navigator reuses this screen instance
-  // instead of remounting it, so a mount-only effect would never see the
-  // new params — this has to watch incomingFilters itself.
+  // Re-runs whenever a new filter set arrives via navigation params — from
+  // the Filters screen, or from tapping a category tile on this screen
+  // itself. The stack navigator reuses this screen instance instead of
+  // remounting it, so a mount-only effect would never see the new params.
   useEffect(() => {
     load(incomingFilters || {});
   }, [load, incomingFilters]);
+
+  // The category tiles live on this screen now (moved off Filters), so
+  // Home needs the category list itself.
+  useEffect(() => {
+    categoriesService.list().then(setCategories);
+  }, []);
 
   // The stack navigator reuses this screen instance instead of remounting
   // it, so a mount-only effect would keep showing stale per-product counts
@@ -70,6 +78,8 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
 
   return {
     products,
+    categories,
+    selectedCategory: incomingFilters?.category ?? null,
     loading,
     error,
     search,
