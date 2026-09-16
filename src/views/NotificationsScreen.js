@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Switch, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft } from "lucide-react-native";
-import { PrimaryButton } from "../components/Shared";
+import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { colors } from "../theme";
 import { useNotificationsViewModel } from "../viewmodels/useNotificationsViewModel";
 
@@ -55,12 +55,12 @@ export default function NotificationsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: "#fff" },
-  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 },
+  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8, ...CENTERED_CONTENT },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
-  content: { flex: 1, paddingHorizontal: 24, paddingTop: 8 },
+  content: { flex: 1, paddingHorizontal: 24, paddingTop: 8, ...CENTERED_CONTENT },
   row: { flexDirection: "row", alignItems: "center", paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: colors.line },
   rowLabel: { fontSize: 14.5, fontWeight: "600", color: colors.ink },
   rowDescription: { fontSize: 12, color: colors.muted, marginTop: 3 },
-  footer: { paddingHorizontal: 24, paddingTop: 12, paddingBottom: 24 },
+  footer: { paddingHorizontal: 24, paddingTop: 12, paddingBottom: 24, ...CENTERED_CONTENT },
   error: { color: colors.crimson, fontSize: 12, marginTop: 12 },
 });
