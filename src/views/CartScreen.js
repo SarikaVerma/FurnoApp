@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeft, Minus, Plus, ShoppingCart } from "lucide-react-native";
-import { PrimaryButton } from "../components/Shared";
+import { PrimaryButton, CENTERED_CONTENT } from "../components/Shared";
 import { ProductIllustration } from "../components/ProductIllustration";
 import { colors } from "../theme";
 import { useCartViewModel } from "../viewmodels/useCartViewModel";
@@ -46,7 +46,7 @@ export default function CartScreen({ navigation }) {
         <Text style={styles.emptyText}>Your basket is empty.</Text>
       ) : (
         <ScrollView
-          style={{ flex: 1, minHeight: 0, paddingHorizontal: 20 }}
+          style={{ flex: 1, minHeight: 0, paddingHorizontal: 20, ...CENTERED_CONTENT }}
           contentContainerStyle={{ paddingBottom: 24 }}
         >
           {items.map((item) => {
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 12,
     paddingBottom: 8,
+    ...CENTERED_CONTENT,
   },
   headerTitle: { fontSize: 15, fontWeight: "700", color: colors.ink },
   item: {
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   stepperBtn: { padding: 2 },
   stepperValue: { width: 16, textAlign: "center", fontSize: 12.5, fontWeight: "600" },
   removeText: { fontSize: 11, color: colors.crimson, fontWeight: "600", marginLeft: 8 },
-  footer: { paddingHorizontal: 24, paddingTop: 12, paddingBottom: 24 },
+  footer: { paddingHorizontal: 24, paddingTop: 12, paddingBottom: 24, ...CENTERED_CONTENT },
   totalRow: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 16 },
   totalLabel: { flex: 1, fontSize: 14, fontWeight: "600", color: colors.ink },
   totalValue: { fontSize: 18, fontWeight: "800", color: colors.plum },
