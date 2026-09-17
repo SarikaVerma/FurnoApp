@@ -29,6 +29,16 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      # public/data/*.json is served to the app via jsDelivr's GitHub CDN
+      # (see src/services/config.js) rather than GitHub Pages, since GitHub
+      # Pages can't answer a CORS preflight OPTIONS request. jsDelivr caches
+      # aggressively (~7 days) by default, so without this, a catalog data
+      # change could take up to a week to actually show up in the app.
+      - name: Purge jsDelivr cache for public/data
+        run: |
+          for f in public/data/*.json; do
+            curl -s "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f" || true
+          done
 
   deploy:
     needs: build
