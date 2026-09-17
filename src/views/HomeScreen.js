@@ -117,8 +117,6 @@ export default function HomeScreen({ navigation, route }) {
         </View>
       </View>
 
-      <Text style={styles.deployNote}>Deployed via GitHub Actions — live for team review</Text>
-
       {loading ? (
         <ActivityIndicator style={{ marginTop: 40 }} color={colors.crimson} />
       ) : error ? (
@@ -232,13 +230,6 @@ const styles = StyleSheet.create({
   },
   categoryIconWrapActive: { opacity: 1 },
   categoryLabel: { fontSize: 10, fontWeight: "600", color: colors.ink, textAlign: "center" },
-  deployNote: {
-    fontSize: 11,
-    color: colors.muted,
-    textAlign: "center",
-    paddingHorizontal: 20,
-    paddingBottom: 8,
-  },
   filterLinks: { flexDirection: "row", alignItems: "center", gap: 16 },
   filterLink: { flexDirection: "row", alignItems: "center", gap: 4 },
   filterLinkText: { fontSize: 12.5, fontWeight: "600", color: colors.crimson },
