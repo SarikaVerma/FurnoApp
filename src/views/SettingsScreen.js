@@ -20,7 +20,7 @@ const LINK_ROWS = [
 ];
 
 export default function SettingsScreen({ navigation }) {
-  const { darkMode, setDarkMode, logout } = useSettingsViewModel();
+  const { darkMode, setDarkMode, logout, cartCount } = useSettingsViewModel();
 
   // Alert.alert has no real dialog on the web build (react-native-web
   // doesn't implement it), so a confirmation gated behind its callback
@@ -77,7 +77,7 @@ export default function SettingsScreen({ navigation }) {
         onNavigate={(key) => handleTabPress(navigation, key)}
         Icons={[
           { key: "home", Icon: Store },
-          { key: "cart", Icon: ShoppingCart },
+          { key: "cart", Icon: ShoppingCart, badge: cartCount },
           { key: "profile", Icon: User },
           { key: "settings", Icon: SettingsIcon },
         ]}
