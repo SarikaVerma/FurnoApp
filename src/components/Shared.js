@@ -59,11 +59,13 @@ export function handleTabPress(navigation, key) {
   }
 }
 
-// Bottom tab bar shared by the Profile and Catalog screens.
+// Bottom tab bar shared by the Profile and Catalog screens. An Icons entry
+// may include `badge`: a count shown as a small pill on that tab (e.g. the
+// number of items in the cart) — omitted or zero renders no badge.
 export function TabBar({ active, onNavigate, Icons }) {
   return (
     <View style={styles.tabBar}>
-      {Icons.map(({ key, Icon }) => {
+      {Icons.map(({ key, Icon, badge }) => {
         const isActive = active === key;
         return (
           <TouchableOpacity
@@ -71,7 +73,14 @@ export function TabBar({ active, onNavigate, Icons }) {
             onPress={() => onNavigate(key)}
             style={[styles.tabButton, isActive && styles.tabButtonActive]}
           >
-            <Icon size={20} color={isActive ? colors.crimson : "#C9BFC5"} />
+            <View style={styles.tabIconWrap}>
+              <Icon size={20} color={isActive ? colors.crimson : "#C9BFC5"} />
+              {badge > 0 ? (
+                <View style={styles.tabBadge}>
+                  <Text style={styles.tabBadgeText}>{badge > 99 ? "99+" : badge}</Text>
+                </View>
+              ) : null}
+            </View>
           </TouchableOpacity>
         );
       })}
@@ -191,5 +200,27 @@ const styles = StyleSheet.create({
   },
   tabButtonActive: {
     backgroundColor: colors.chip,
+  },
+  tabIconWrap: {
+    // Anchors the badge to the icon itself rather than the whole button,
+    // so it doesn't shift when tabButtonActive adds background padding.
+    position: "relative",
+  },
+  tabBadge: {
+    position: "absolute",
+    top: -6,
+    right: -9,
+    minWidth: 16,
+    height: 16,
+    borderRadius: 8,
+    paddingHorizontal: 3,
+    backgroundColor: colors.gradTo,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tabBadgeText: {
+    color: "#fff",
+    fontSize: 9,
+    fontWeight: "700",
   },
 });
