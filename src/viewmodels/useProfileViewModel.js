@@ -2,11 +2,13 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { userService } from "../services/userService";
 import { User } from "../models/User";
+import { useCartCount } from "./useCartCount";
 
 export function useProfileViewModel() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const cartCount = useCartCount();
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -31,5 +33,5 @@ export function useProfileViewModel() {
     }, [load])
   );
 
-  return { user, loading, error, reload: load };
+  return { user, loading, error, reload: load, cartCount };
 }
