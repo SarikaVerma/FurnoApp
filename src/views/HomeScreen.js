@@ -40,6 +40,7 @@ export default function HomeScreen({ navigation, route }) {
     search,
     setSearch,
     cartQuantities,
+    cartCount,
     addToCart,
     reload,
   } = useHomeViewModel("guest", activeFilters);
@@ -179,7 +180,7 @@ export default function HomeScreen({ navigation, route }) {
         onNavigate={(key) => handleTabPress(navigation, key)}
         Icons={[
           { key: "home", Icon: Store },
-          { key: "cart", Icon: ShoppingCart },
+          { key: "cart", Icon: ShoppingCart, badge: cartCount },
           { key: "profile", Icon: User },
           { key: "settings", Icon: Settings },
         ]}
