@@ -73,6 +73,14 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
     return allProducts.filter((p) => p.name.toLowerCase().includes(q));
   }, [allProducts, search]);
 
+  // Derived from cartQuantities (already fetched above for the catalog
+  // steppers) rather than a second cartService call — the TabBar's cart
+  // badge just sums the same data this screen already has in memory.
+  const cartCount = useMemo(
+    () => Object.values(cartQuantities).reduce((sum, q) => sum + q, 0),
+    [cartQuantities]
+  );
+
   const addToCart = useCallback(
     async (productId, delta = 1) => {
       try {
@@ -95,6 +103,7 @@ export function useHomeViewModel(userId = "guest", incomingFilters = null) {
     setSearch,
     reload: () => load(incomingFilters || {}),
     cartQuantities,
+    cartCount,
     addToCart,
   };
 }
