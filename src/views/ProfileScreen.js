@@ -15,7 +15,7 @@ const ROWS = [
 ];
 
 export default function ProfileScreen({ navigation }) {
-  const { user, loading, error } = useProfileViewModel();
+  const { user, loading, error, cartCount } = useProfileViewModel();
 
   // The notifications badge used to be a hardcoded 9, unrelated to
   // anything on the actual Notifications screen. It now counts the same
@@ -65,7 +65,7 @@ export default function ProfileScreen({ navigation }) {
         onNavigate={(key) => handleTabPress(navigation, key)}
         Icons={[
           { key: "home", Icon: Store },
-          { key: "cart", Icon: ShoppingCart },
+          { key: "cart", Icon: ShoppingCart, badge: cartCount },
           { key: "profile", Icon: User },
           { key: "settings", Icon: Settings },
         ]}
